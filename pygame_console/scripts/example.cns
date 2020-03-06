@@ -1,0 +1,4 @@
+move 300,300
+!print('I have moved the brick')
+!game.surf.fill((0,255,0))
+!print('I have colored the brick')
