@@ -1,5 +1,5 @@
 '''
-	Experiment for implementation of in-game console
+	Implementation of graphical in-game console
 	supporting input and output in graphics(pygame)
 
 	Features
@@ -30,8 +30,6 @@
 
 		-	merge to GITanim
 		-	put on forums
-
-
 
 	How to incorporate in the code
 	******************************
