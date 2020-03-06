@@ -1441,14 +1441,12 @@ if __name__ == "__main__":
 			''' Console integration code - START
 				********************************
 			'''
-			# Generate random console config
+			# Generate random console config (no parameter) or specify the layout by nums 1 to 6
 			console_config = self.get_console_config(1)
 
-			# Create console based on th config
-			self.console = Console(self, 
-									self.screen.get_width(), 
-									console_config
-									)
+			# Create console based on the config - feel free to implement custom code to read the config directly from json
+			self.console = Console(self, self.screen.get_width(), console_config)
+			
 			''' Console integration code - END
 				********************************
 			'''
@@ -1675,7 +1673,7 @@ if __name__ == "__main__":
 					'footer' : {						
 						'text' : 'Sample 4: Minimal - only header and footer ',
 						'layout' : ['SCROLL_RIGHT_CONTINUOUS',100,1],
-						'font_file' : 'fonts/IBMPlexMono-Regular.ttf'
+						'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf'
 						}
 					}
 
