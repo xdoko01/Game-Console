@@ -1,6 +1,6 @@
 '''
 	Implementation of graphical in-game console
-	supporting input and output in graphics(pygame)
+	supporting input and output in graphics (pygame)
 
 	Features
 	********
@@ -19,17 +19,14 @@
 		-	cutting the text of text input
 		-	text input is not limited and scrolls automatically to the left.
 		-	in text input fix jumping text line when '1' or 'q' is input - this is the best solution, use different font if not satisfied
-		-	console does not need to contain header/footer/input/output - based on json config
+		-	console does not ne!ed to contain header/footer/input/output - based on json config
 
 	FEATURES TODO
 	*************
 		
-		-	blit integers depretiation warning
 		-	Directory with scripts as console parameter
 		-	handling tabs as spaces - substitute tabs on output by predefined number of spaces
 
-		-	merge to GITanim
-		-	put on forums
 
 	How to incorporate in the code
 	******************************
