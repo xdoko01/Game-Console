@@ -61,7 +61,7 @@ def do_dummy(self, params):</br>
 
 There is already one custom functionimplemented in the example game <code>move</code>. The function takes 2 parameters delimited by comma and changes position of the main game rectancle.
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/07_console01_cmd_input.png)
+![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/03_console01_cmd_input.png)
 
 ### Generic Commands
 All the non-python shell commands can be listed by typing <code>help</code> or simply <code>?</code> on the command line. The example of generic command can be <code>exit</code> that simply quicks the game. Also by typing <code>help move</code> or simply <code>?move</code> will list description of the command.
@@ -94,6 +94,37 @@ If you want to have dynamic values in your console, you need to do the following
 ## Changing console layout/configuration
 A mentioned in the list of features, console enables heavy configuration. I suggest you to see example game function <code>get_console_config()</code> and get inspiration from 6 configurations that are predifined there.
 Below you can see the pictures of those configurations in the game.
+
+### Sample Layout 1:
+* Scrolling dynamic text in the header and footer
+* Transparency of all console parts + wallpaper
+* Animation upon displaying hidding of the console set to 2s
+* Different fonts for different console parts
+
+![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf01.png)
+
+### Sample Layout 2:
+* Header and footer omitted by configuration
+* Transparency of all console parts + wallpaper
+* Animation upon displaying hidding of the console - from the bottom - default time 100ms
+* Command line input is above console output part
+* Different fonts for different console parts
+
+![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf02.png)
+
+### Sample Layout 3:
+* Totaly minimalistic - only header with dynamic text shown
+* No transparency, no wallpapers
+
+![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf03.png)
+
+### Sample Layout 4:
+* Minimalistic - only header and footer with dynamic text shown
+* No transparency, no wallpapers
+* 
+
+![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf03.png)
+
 
 
 ## Hints for implementation of console into my own game
