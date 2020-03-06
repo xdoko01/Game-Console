@@ -31,16 +31,16 @@ When instantiating Console class you need to specify reference to the main game 
 
 Examples of couple python commands that can be used with the example game are below:
 
-* shell print('Hello world') # Prints Hello world on console
-* !print('Hello world') # Same as above
-* !game # Prints <__main__.TestObject object at 0xXXXXXXXX> i.e. reference to the main object that is govern by the console
-* !game.pos = [10,10] # Changes position of the game rectancle
-* !game.surf.fill((0,0,0)) # Changes the color of the game rectancle from white to black
-* !game.console.padding.up = 30 # Changes the space between upper console corner and first console element (header or other depending on console layout settings)
-* !game.cons_get_time() # Prints output of the function on the console output.
-* !1+1 # Prints 2 on the output
-* ![a for a in range(10)] # Prints list of values from 0 to 9 on the output
-* !import os # Prints 'invalid syntax'. Such python operations are not allowed from the console due to security reasons
+* <i>shell print('Hello world')</i>     # Prints Hello world on console
+* <i>!print('Hello world')</i>      # Same as above
+* <i>!game</i>      # Prints <__main__.TestObject object at 0xXXXXXXXX> i.e. reference to the main object that is govern by the console
+* <i>!game.pos = [10,10]</i>      # Changes position of the game rectancle
+* <i>!game.surf.fill((0,0,0))</i>     # Changes the color of the game rectancle from white to black
+* <i>!game.console.padding.up = 30</i>      # Changes the space between upper console corner and first console element (header or other depending on console layout settings)
+* <i>!game.cons_get_time()</i>      # Prints output of the function on the console output.
+* <i>!1+1</i>     # Prints 2 on the output
+* <i>![a for a in range(10)]</i>      # Prints list of values from 0 to 9 on the output
+* <i>!import os</i>     # Prints 'invalid syntax'. Such python operations are not allowed from the console due to security reasons
 
 ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/07_console01_cmd_py.png)
 
