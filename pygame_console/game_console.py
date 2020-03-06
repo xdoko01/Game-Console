@@ -1547,7 +1547,7 @@ if __name__ == "__main__":
 							'layout' : 'INPUT_BOTTOM',
 							'padding' : (10,10,20,20),
 							'bck_color' : (125,125,125),
-							'bck_image' : 'backgrounds/quake.png',
+							'bck_image' : 'pygame_console/backgrounds/quake.png',
 							'bck_image_resize' : True,
 							'bck_alpha' : 150,
 							'welcome_msg' : 'Sample 1: Full feature console + top animation with 2s timing\n***************\nType "exit" to quit\nType "help"/"?" for help\nType "? shell" for examples of python commands',
@@ -1558,19 +1558,19 @@ if __name__ == "__main__":
 							'text_params' : ['cons_get_pos','cons_get_time'],												
 							'layout' : ['SCROLL_LEFT_CONTINUOUS', 0, 2],
 							'padding' :(10,10,10,10),
-							'font_file' : 'fonts/IBMPlexMono-Regular.ttf',
+							'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
 							'font_size' : 12,
 							'font_antialias' : True,
 							'font_color' : (255,255,255),
 							'font_bck_color' : None,
 							'bck_color' : (255,0,0),
-							'bck_image' : 'backgrounds/quake.png',
+							'bck_image' : 'pygame_console/backgrounds/quake.png',
 							'bck_image_resize' : True,
 							'bck_alpha' : 100
 							},
 						'output' : {
 							'padding' : (10,10,10,10),
-							'font_file' : 'fonts/JackInput.ttf',
+							'font_file' : 'pygame_console/fonts/JackInput.ttf',
 							'font_size' : 16,
 							'font_antialias' : True,
 							'font_color' : (255,255,255),
@@ -1580,14 +1580,11 @@ if __name__ == "__main__":
 							'buffer_size' : 100,
 							'display_lines' : 20,
 							'display_columns' : 100,
-							'line_spacing' : None,
-							'char_subst' : { 
-								'\t' : '->'
-								}
+							'line_spacing' : None
 							},
 						'input' : {
 							'padding' : (10,10,10,10),
-							'font_file' : 'fonts/JackInput.ttf',
+							'font_file' : 'pygame_console/fonts/JackInput.ttf',
 							'font_size' : 16,
 							'font_antialias' : True,
 							'font_color' : (255,0,0),
@@ -1604,7 +1601,7 @@ if __name__ == "__main__":
 							'text_params' : ['cons_get_input_spacing'],
 							'layout' : ['SCROLL_RIGHT_CONTINUOUS',100,1],
 							'padding' : (10,10,10,10),
-							'font_file' : 'fonts/IBMPlexMono-Regular.ttf',
+							'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
 							'font_size' : 10,
 							'font_antialias' : True,
 							'font_color' : (255,255,255),
@@ -1624,7 +1621,7 @@ if __name__ == "__main__":
 							'layout' : 'INPUT_TOP',
 							'padding' : (10,10,20,20),
 							'bck_color' : (125,125,125),
-							'bck_image' : 'backgrounds/quake.png',
+							'bck_image' : 'pygame_console/backgrounds/quake.png',
 							'bck_image_resize' : True,
 							'bck_alpha' : 150,
 							'welcome_msg' : 'Sample 2: Full featured, no footer, no header + bottom animation + Input top layout\n***************\nType "exit" to quit\nType "help"/"?" for help\nType "? shell" for examples of python commands',
@@ -1632,7 +1629,7 @@ if __name__ == "__main__":
 							},
 						'output' : {
 							'padding' : (10,10,10,10),
-							'font_file' : 'fonts/JackInput.ttf',
+							'font_file' : 'pygame_console/fonts/JackInput.ttf',
 							'font_size' : 16,
 							'font_antialias' : True,
 							'font_color' : (255,255,255),
@@ -1646,7 +1643,7 @@ if __name__ == "__main__":
 							},
 						'input' : {
 							'padding' : (10,10,10,10),
-							'font_file' : 'fonts/JackInput.ttf',
+							'font_file' : 'pygame_console/fonts/JackInput.ttf',
 							'font_size' : 16,
 							'font_antialias' : True,
 							'font_color' : (255,0,0),
@@ -1664,7 +1661,7 @@ if __name__ == "__main__":
 			if sample == 3:
 				return {
 					'header' : {
-						'font_file' : 'fonts/IBMPlexMono-Regular.ttf',
+						'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
 						'text' : 'Sample 3: Minimal - only header. Current Time: {} ',
 						'text_params' : ['cons_get_time'],												
 						'layout' : ['SCROLL_LEFT_CONTINUOUS', 0, 2],
@@ -1675,7 +1672,7 @@ if __name__ == "__main__":
 			if sample == 4:
 				return {
 					'header' : {
-						'font_file' : 'fonts/IBMPlexMono-Regular.ttf',
+						'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
 						'text' : 'Sample 4: Minimal - only header and footer. Current Position: {} ',
 						'text_params' : ['cons_get_pos'],												
 						'layout' : ['SCROLL_LEFT_CONTINUOUS', 0, 2]
@@ -1691,13 +1688,13 @@ if __name__ == "__main__":
 			if sample == 5:
 				return {
 					'header' : {
-						'font_file' : 'fonts/IBMPlexMono-Regular.ttf',
+						'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
 						'text' : 'Sample 5: Minimal - only header and input, output on stdout. Current Pos: {} ',
 						'text_params' : ['cons_get_pos'],												
 						'layout' : ['TEXT_CENTRE']
 						},
 					'input' : {
-						'font_file' : 'experiments/cli/fonts/JackInput.ttf'
+						'font_file' : 'pygame_console/fonts/JackInput.ttf'
 						}
 					}
 
@@ -1712,11 +1709,11 @@ if __name__ == "__main__":
 						'welcome_msg_color' : (0,255,0)
 						},
 					'input' : {
-						'font_file' : 'fonts/JackInput.ttf',
+						'font_file' : 'pygame_console/fonts/JackInput.ttf',
 						'bck_alpha' : 0
 						},
 					'output' : {
-						'font_file' : 'fonts/JackInput.ttf',
+						'font_file' : 'pygame_console/fonts/JackInput.ttf',
 						'bck_alpha' : 0,
 						'display_lines' : 20,
 						'display_columns' : 100
