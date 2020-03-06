@@ -136,5 +136,15 @@ Below you can see the pictures of those configurations in the game.
 
 ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf06.png)
 
+## How to integrate console into the game
+ 
+ * Prepare configuration JSON. Use sample configuration dicts in <code>get_console_config()</code> for inspiration
+ * Instantiate console class
+ * For switching console on/off call <code>toggle()</code> function
+ * For reading the input keys and process them by console call <code>update()</code> function
+ * For showing the console use <code>show()</code> function. Animation effect is processed internally.
+ 
+ ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/Integr01.png)
+ ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/Integr02.png)
 
-## Hints for implementation of console into my own game
+ 
