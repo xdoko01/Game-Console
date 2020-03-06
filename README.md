@@ -95,7 +95,7 @@ If you want to have dynamic values in your console, you need to do the following
 A mentioned in the list of features, console enables heavy configuration. I suggest you to see example game function <code>get_console_config()</code> and get inspiration from 6 configurations that are predifined there.
 Below you can see the pictures of those configurations in the game.
 
-### Sample Layout 1:
+### Sample Layout 1
 * Scrolling dynamic text in the header and footer
 * Transparency of all console parts + wallpaper
 * Animation upon displaying hidding of the console set to 2s
@@ -103,7 +103,7 @@ Below you can see the pictures of those configurations in the game.
 
 ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf01.png)
 
-### Sample Layout 2:
+### Sample Layout 2
 * Header and footer omitted by configuration
 * Transparency of all console parts + wallpaper
 * Animation upon displaying hidding of the console - from the bottom - default time 100ms
@@ -112,19 +112,29 @@ Below you can see the pictures of those configurations in the game.
 
 ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf02.png)
 
-### Sample Layout 3:
+### Sample Layout 3
 * Totaly minimalistic - only header with dynamic text shown
 * No transparency, no wallpapers
 
 ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf03.png)
 
-### Sample Layout 4:
+### Sample Layout 4
 * Minimalistic - only header and footer with dynamic text shown
 * No transparency, no wallpapers
-* 
+* Header and footer are scrolling by different speed
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf03.png)
+![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf04.png)
 
+### Sample Layout 5
+* Minimalistic - only input and header with dynamic text shown
+* No transparency, no wallpapers
+
+![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf05.png)
+
+### Sample Layout 6
+* Minimalistic - only input and output with transparency
+
+![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf06.png)
 
 
 ## Hints for implementation of console into my own game
