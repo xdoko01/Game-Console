@@ -20,6 +20,7 @@
 		-	text input is not limited and scrolls automatically to the left.
 		-	in text input fix jumping text line when '1' or 'q' is input - this is the best solution, use different font if not satisfied
 		-	console does not ne!ed to contain header/footer/input/output - based on json config
+		-	scrolling console output using mouse wheel
 
 	FEATURES TODO
 	*************

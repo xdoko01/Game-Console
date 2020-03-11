@@ -6,7 +6,7 @@ Full-featured game console based on pygame that can be integrated in your python
 ## Main Features
 * fully configurable look&feel via json - fonts, pictures, commands, console layouts, paddings, scrolling text and more
 * history of inputed commands available upon pressing up/down buttons
-* scrollable output available upon pressing pgUp/pgDown buttons
+* scrollable output available upon pressing pgUp/pgDown buttons and/or mouse wheel
 * configurable transparency and wallpaper support
 * optional header/footer text that can contain dynamic in-game values (time, fps, anything else)
 * header/footer layouts supporting scrolling and more
