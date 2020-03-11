@@ -651,6 +651,18 @@ class TextOutput:
 				elif event.key == pl.K_RETURN:
 					self.buffer_offset = max([0, len(self.buffer) - self.display_lines])
 					self.prepare_surface()
+			
+			elif event.type == pygame.MOUSEBUTTONDOWN:
+
+				# On mouse roll button UP - one row up
+				if event.button == 4:
+					self.buffer_offset = max([0, self.buffer_offset - 1])
+					self.prepare_surface()
+
+				# On mouse roll button DOWN - one row down
+				elif event.button == 5:
+					self.buffer_offset = min([max([0, len(self.buffer) - 1]), self.buffer_offset + 1])
+					self.prepare_surface()
 
 	def write(self, text, color=None):
 		''' Handles adding output text into textoutput buffer in given color
