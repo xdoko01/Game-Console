@@ -25,6 +25,8 @@
 	FEATURES TODO
 	*************
 		
+		-	Customize keys for console via json configuration
+		-	Show optional vertical scroll bar on console output
 		-	Directory with scripts as console parameter
 		-	handling tabs as spaces - substitute tabs on output by predefined number of spaces
 
