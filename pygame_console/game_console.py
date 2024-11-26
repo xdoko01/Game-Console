@@ -1143,7 +1143,7 @@ class Console(pygame.Surface):
 		'''
 
 		self.app = app
-		self.width = width
+		#self.width = width
 
 		# Dictionary with default values
 		default_config = {
@@ -1171,23 +1171,23 @@ class Console(pygame.Surface):
 		text_input and text_output.
 		'''
 		# Initiate header object, use defaults if header params are not passed during initiation
-		self.console_header = Header(self, (self.width - self.padding.left - self.padding.right), config.get('header')) if config.get('header', None) else None
+		self.console_header = Header(self, (width - self.padding.left - self.padding.right), config.get('header')) if config.get('header', None) else None
 
 		# Initiate input text object
-		self.console_input = TextInput(self, (self.width - self.padding.left - self.padding.right), config.get('input')) if config.get('input', None) else None
+		self.console_input = TextInput(self, (width - self.padding.left - self.padding.right), config.get('input')) if config.get('input', None) else None
 
 		# Initiate output text object
-		self.console_output = TextOutput(self, (self.width - self.padding.left - self.padding.right), config.get('output')) if config.get('output', None) else None
+		self.console_output = TextOutput(self, (width - self.padding.left - self.padding.right), config.get('output')) if config.get('output', None) else None
 
 		# Initiate footer object
-		self.console_footer = Header(self, self.width - self.padding.left - self.padding.right, config.get('footer')) if config.get('footer', None) else None		
+		self.console_footer = Header(self, width - self.padding.left - self.padding.right, config.get('footer')) if config.get('footer', None) else None		
 
 		# Initiace object for processing console commands - output of the class is redirected
 		# if console_output is not defined then standard output is used (sustem text console)
 		self.cli = CommandLineProcessor(self.app, output=self.console_output) if self.console_output else CommandLineProcessor(self.app)
 
 		# Correct the height dimension so that all the text rows are displayable
-		self.dim = (self.width, self.padding.up 
+		self.dim = (width, self.padding.up 
 							+ (self.console_header.get_height() if self.console_header else 0)
 							+ (self.console_output.get_max_height() if self.console_output else 0)
 							+ (self.console_input.get_height() if self.console_input else 0)
