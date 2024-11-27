@@ -47,6 +47,25 @@ import pygame.freetype # for all the fonts
 import pygame.locals as pl # for key names
 import cmd	# for command line support https://docs.python.org/3/library/cmd.html
 
+# Utils functions
+from importlib import import_module
+
+def str_to_package_module(package: str, module: str):
+    '''Gets reference to the module in the package
+
+    Parameters:
+        :param package: Path to the package, for example pyrpg.core.ecs
+        :type package: str
+
+        :param module: Path to the module, relative to the package
+        :type module: str
+    '''
+    try:
+        return import_module(module, package=package)
+    except ModuleNotFoundError:
+        raise ValueError(f'Incorrect package.module name "{package}.{module}"')
+
+
 class Padding(tuple):
 	''' Class to facilitate easier and more understandable work 
 	with console paddings that are tuples (indexing). Items of this class
@@ -75,7 +94,7 @@ class CommandLineProcessor(cmd.Cmd):
 	https://github.com/Tuxemon/Tuxemon
 	'''
 
-	def __init__(self, app, input=sys.stdin, output=sys.stdout):
+	def __init__(self, app, input=sys.stdin, output=sys.stdout, cmd_pckg_path=None, script_path=None):
 		''' Inherit from Cmd class. Output will need to be redirected 
 		to console graphical output, otherwise it would go to the text
 		window.
@@ -86,27 +105,67 @@ class CommandLineProcessor(cmd.Cmd):
 		self.app = app
 		self.output = output
 		self.input = input
+		self.cmd_pckg_path = cmd_pckg_path # the package containing modules implementing console commands
+		self._cmd_scripts = dict() # dict with functions implementing commands
+
+	def get_command(self, command_name: str):    
+		'''Gets the py script module from the storage if registered or register it first.
+		'''
+		command_fnc = self._cmd_scripts.get(command_name)
+		return command_fnc if command_fnc is not None else self.register_command(command_name)
+
+	def register_command(self, command_module_name: str):
+		'''Register the py script module.'''
+
+		command_module_path_absolute = f"{self.cmd_pckg_path}.{command_module_name}"
+
+		# Try to find the  module and get its reference
+		try:
+			command_module = str_to_package_module(None, command_module_path_absolute)
+
+		except ValueError:
+			raise ValueError(f'Error during loading of py script command module "{command_module_path_absolute}".')
+
+		# Try to register the script
+		try:
+			command_module.initialize(self._register_command, command_module_name)
+
+		except ValueError:
+			raise ValueError(f'Error during initiating/registering of command module "{command_module_path_absolute}".')
+
+		return self._cmd_scripts.get(command_module_name)
+
+	def _register_command(self, fnc, alias) -> None:
+		'''Registers new script command under some
+		specific name.
+		'''
+		self._cmd_scripts.update({alias: fnc})
 
 	def emptyline(self):
 		''' In case empty line is entered, nothing happens
 		'''
 		pass
 
-	def do_exit(self, params):
-		''' If "exit" was typed on the command line, set the app's exit variable to True.
-		'''
-		self.app.exit = True
-		return True
+	def default(self, line):
+		''' Overridden from Cmd super-class. 
+		It is called always when the do_xxx function is not found.
 
-	def do_quit(self, params):
-		'''If "quit" was typed on the command line, set the app's exit variable to True.
+		Parameter line contains the whole input string.
+
+		It is the same as using 'py_script'
 		'''
-		return self.do_exit(params)		
+		self.do_py_script(line)
+
+	def do_list(self, params):
+		'''List of all commands'''
+		self.output.write(f'Registered commands: {self._cmd_scripts.keys()}')
+		self.output.write(f'See the {self.cmd_pckg_path} package for list of all scripted commands')
+
 	
 	def do_EOF(self, params):
 		'''If you press CTRL-D on the command line, set the app's exit variable to True.
 		'''
-		return self.do_exit(params)
+		return self.do_py_script('exit')
 
 	def do_shell(self, params):
 		''' Executes python commands in the console. App entity can be accessed
@@ -131,7 +190,7 @@ class CommandLineProcessor(cmd.Cmd):
 
 		try:
 			exec('Result = ' + params, globals_param, locals_param)
-			Result = locals_param.get('Result')			
+			Result = locals_param.get('Result')
 		except Exception as E:
 			self.output.write(str(E))
 			return -1
@@ -140,11 +199,32 @@ class CommandLineProcessor(cmd.Cmd):
 			if Result: self.output.write(str(Result))
 			sys.stdout = sys.__stdout__
 
+	def do_py_script(self, params):
+		''' Executes python script
+
+			Examples: 
+				py_script test_script.py AmmoPack
+		'''
+		# Prepare the text output buffer
+		console_out = sys.stdout = StringIO()
+
+		try:
+			py_script = self.get_command(params.split()[0]) # try to get the py script name
+			py_script(game_ctx=self.app, params=params) # call the script
+			self.output.write(str(console_out.getvalue())) # write anything to the console
+		except Exception as E:
+			#self.output.write(str(console_out.getvalue()))
+			self.output.write(str(E))
+			return -1
+		finally:
+			sys.stdout = sys.__stdout__ # restore the output buffer to original system output
+
+
 	def do_script(self, params):
 		''' Run custom scripts that contain commands implemented in this class.
 
 		Script example:
-			move 300,300
+			move 300 300
 			!print('I have moved the brick')
 			!game.surf.fill((0,0,0))
 			!print('I have colored the brick')
@@ -182,16 +262,6 @@ class CommandLineProcessor(cmd.Cmd):
 				self.output.write('Error (' + str(error) + ') on line '+ str(script_line_no) + '. Command: ' + str(script_line.strip()))
 			return -1
 
-	def do_move(self, params):
-		''' Example of custom command implementation	
-		It is important to return True if success and False
-		'''
-		try:
-			self.app.move(params)
-			return None
-		except Exception as E:
-			self.output.write(str(E))
-			return -1
 
 class Header:
 	''' Class specifying properties of Console header and/or footer.
@@ -1184,7 +1254,8 @@ class Console(pygame.Surface):
 
 		# Initiace object for processing console commands - output of the class is redirected
 		# if console_output is not defined then standard output is used (sustem text console)
-		self.cli = CommandLineProcessor(self.app, output=self.console_output) if self.console_output else CommandLineProcessor(self.app)
+		self.cli = CommandLineProcessor(self.app, output=self.console_output, cmd_pckg_path=config.get('global').get('cmd_pckg_path', None)) if self.console_output else CommandLineProcessor(self.app)
+
 
 		# Correct the height dimension so that all the text rows are displayable
 		self.dim = (width, self.padding.up 
@@ -1510,11 +1581,11 @@ if __name__ == "__main__":
 				pygame.display.update()
 				self.clock.tick(30)
 
-		def move(self, line):
+		def move(self, move_x, move_y):
 			''' first argumet is movement on x-axis
 				second argument is movement on y-axis
 			''' 
-			move_x, move_y = line.split(',')
+			#move_x, move_y = line.split(',')
 			self.pos[0] += int(move_x) 
 			self.pos[1] += int(move_y) 
 
@@ -1551,6 +1622,7 @@ if __name__ == "__main__":
 			if sample == 1:
 				return {
 						'global' : {
+							'cmd_pckg_path': 'commands',
 							'animation': ['TOP', 2000],
 							'layout' : 'INPUT_BOTTOM',
 							'padding' : (10,10,20,20),
@@ -1625,6 +1697,7 @@ if __name__ == "__main__":
 			if sample == 2:
 				return {
 						'global' : {
+							'cmd_pckg_path': 'commands',
 							'animation' : ['BOTTOM'],
 							'layout' : 'INPUT_TOP',
 							'padding' : (10,10,20,20),
@@ -1710,6 +1783,7 @@ if __name__ == "__main__":
 			if sample == 6:
 				return {
 					'global' : {
+						'cmd_pckg_path': 'commands',
 						'layout' : 'INPUT_BOTTOM',
 						'padding' : (10,10,10,10),
 						'bck_alpha' : 150,
