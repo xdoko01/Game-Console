@@ -34,3 +34,4 @@ def cons_cmd_exit(game_ctx, params):
     else:
         game_ctx.exit = True
         print(f'Exiting ...')
+        return 0

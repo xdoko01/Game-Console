@@ -11,23 +11,27 @@ Full-featured game console based on pygame that can be integrated in your python
 * optional header/footer text that can contain dynamic in-game values (time, fps, anything else)
 * header/footer layouts supporting scrolling and more
 * optional fluent animation during showing/hiding of the console
-* support for running custom scripts (batches of console commands)
+* commands implemented as a separate python scripts
+* support for running custom scripts (batches of console commands) with parameters
 * support for colored texts, big inputs, big outputs
 * easy integration into your existing code
 
 ## Running the code
-All logic including example game is implemented in game_console.py file. Make sure you have pygame 1.9.4 installed and run the code.
+All console logic is implemented in the `pygame_console` package. Example game with console implementation is in `example_game.py`.
+Folders `console_commands`, `console_scripts` and `console_configs` contain configurable console logic tailored for given game. Those can be further modified/extended to implement more logic / commands / scripts into the console.
 
-* You will see pygame window with rectancle movind in random directions - simulation of game
+Make sure you have pygame >= 1.9.4 installed and run the code.
+
+* You will see pygame window with rectancle moving in random directions - simulation of game
 
 * By pressing F1 button you can toggle on/off console
 
-* By pressing Esc key or closing the window or typing 'quick'/'exit' will end the program
+* By pressing Esc key or closing the window or typing 'exit' will end the program
 
 ## How to use console features
 
 ### Python Commands
-When instantiating Console class you need to specify reference to the main game class that you want to manage. Instance of this class is then referenced as 'game'. Using console, you can then use standard python code with this instance. Python commands must start either with 'shell' keyword or simple exclamation mark '!'.
+When instanciating Console class you need to specify reference to the main game class that you want to manage. Instance of this class is then referenced as 'game'. Using console, you can then use standard python code with this instance. Python commands must start either with 'shell' keyword or simple exclamation mark '!'.
 
 Examples of couple python commands that can be used with the example game are below:
 
@@ -47,19 +51,13 @@ Examples of couple python commands that can be used with the example game are be
 ### Custom Commands
 With game-console you can specify your own commands. For implementing new command called for example <i>dummy</i> that takes one parameter and prints it on the console in the blue color, you need to perform following steps:
 
-* implement new function called <i>do_dummy</i> in the class CommandLineProcessor
-* New function can look as follows
+* create a new python file `dummy.py` and place it to `console_commands` package (or other package specified by the console `global` configuration that can be changed)
+* see the existing example python files in the `console_commands`package for reference. 
+  * The python file must contain `initialize` function (you can copy&paste it from example commmands). This function is called automatically when the command is first used. It manages registration of the command with the console.
+  * The python file must contain also other function (with any name) that implements the command and is passed `game_ctx` (reference to the game - same as when calling `!game`) and params (command parameters)
 * It is good idea to return some value in case of failure. This is important if your custom command is part of some console script (read further).
 
-def do_dummy(self, params):</br>
-  try:</br>
-    self.output.write(params, (0,0,255))</br>
-    return None</br>
-  except Exception as E:</br>
-    self.output.write(str(E))</br>
-    return -1</br>
-
-There is already one custom functionimplemented in the example game <code>move</code>. The function takes 2 parameters delimited by comma and changes position of the main game rectancle.
+There are already several custom functions implemented in the example game <code>exit</code>, <code>move</code>, and <code>test</code>. The <code>move</code> function takes 2 parameters delimited and changes position of the main game rectancle. The <code>exit</code> command exists the game. The <code>list</code> command shows information about registered commands.
 
 ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/03_console01_cmd_input.png)
 
@@ -73,7 +71,7 @@ Python, Custom and Generic commands can be combined together into the file (one 
 
 Example of invoking such simple script is below:
 
-<code>script pygame_console/scripts/example.cns</code>
+<code>script example1.scr</code>
 
 ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/09_console01_cmd_script.png)
 
@@ -81,18 +79,36 @@ If there is an error on some line of the script, you are notified on the console
 
 ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/10_console01_cmd_script_err.png)
 
+Console scripts also support parameters. See below the example using parameters for `example3.scr` script. Also, console script can be called from other console script.
+
+<code>script example3.scr x=100 y=200 color=128 name=MyBrick</code>
+
+The body of the script using those parameters is then looking as follows:
+
+<code>
+move $x $y
+!print('I have moved the brick named $name')
+!game.surf.fill((0, $color,0))
+!print('I have colored the brick with $color')
+!print("All done!")
+</code>
+
+The parameters are represented as keys starting with `$` in the source of the console script.
+
+![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/12_console01_cmd_script_params.png)
+
 ### Dynamic information in header/footer
 As mentioned above, header or footer can display dynamic data. Those data are gained as a resulf of calling of some function of the main game class. In the example game, you will see <i>time</i> and game object <i>position</i> as some of the examples of such dynamic values.
 
 If you want to have dynamic values in your console, you need to do the following:
 
-* Implement functions that return the requested values in string time somewhere in your game class. In case of our example game there are functions <code>cons_get_pos()</code> and <code>cons_get_time()</code>. Check the code for details.
-* Specify the function in configuration json. See function <code>get_console_config()</code> for examples of different configuration. Alo, see below parameters taxt and text_params where the functions and its placement in the scrolling text is defined.
+* Implement functions that return the requested values in string time somewhere in your game class or alternativelly in some separate module. In case of our example game there are functions <code>cons_get_pos()</code> and <code>cons_get_time()</code>. Check the code for details.
+* Specify the function in configuration json. See the folder `console_configs` for examples of different configurations. Also, see below parameters `text` and `text_params` where the functions and its placement in the scrolling text is defined.
 
 ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/11_dynamic_text_config.png)
 
 ## Changing console layout/configuration
-A mentioned in the list of features, console enables heavy configuration. I suggest you to see example game function <code>get_console_config()</code> and get inspiration from 6 configurations that are predifined there.
+A mentioned in the list of features, console enables heavy configuration. I suggest you to see example console configs in the `console_configs` directory and get inspiration from 6 configurations that are predifined there.
 Below you can see the pictures of those configurations in the game.
 
 ### Sample Layout 1
@@ -138,8 +154,8 @@ Below you can see the pictures of those configurations in the game.
 
 ## How to integrate console into the game
  
- * Prepare configuration JSON. Use sample configuration dicts in <code>get_console_config()</code> for inspiration
- * Instantiate console class
+ * Prepare configuration JSON. Use sample configuration dicts in `console_configs` directory for inspiration
+ * import Console class from pygame_console package and instantiate it
  * For switching console on/off call <code>toggle()</code> function
  * For reading the input keys and process them by console call <code>update()</code> function
  * For showing the console use <code>show()</code> function. Animation effect is processed internally.

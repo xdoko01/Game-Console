@@ -40,4 +40,5 @@ def cons_cmd_move(game_ctx, params):
             return None
         except Exception as E:
             print(str(E))
+            return -1
 

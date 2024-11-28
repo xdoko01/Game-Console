@@ -38,3 +38,4 @@ def cons_cmd_test(game_ctx, params):
     else:
         print(f'Parameters: {all_params}')
         print(f'Game handler details: {game_ctx.__dir__()}')
+        return 0
