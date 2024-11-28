@@ -1,0 +1,11 @@
+{
+    "header" : {
+        "font_file" : "pygame_console/fonts/IBMPlexMono-Regular.ttf",
+        "text" : "Sample 5: Minimal - only header and input, output on stdout. Current Pos: {} ",
+        "text_params" : [[null,"cons_get_pos"]],												
+        "layout" : ["TEXT_CENTRE"]
+    },
+    "input" : {
+        "font_file" : "pygame_console/fonts/JackInput.ttf"
+    }
+}

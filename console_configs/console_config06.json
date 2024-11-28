@@ -1,0 +1,21 @@
+{
+    "global" : {
+        "cmd_pckg_path": "console_commands",
+        "script_path": "console_scripts/",
+        "layout" : "INPUT_BOTTOM",
+        "padding" : [10,10,10,10],
+        "bck_alpha" : 150,
+        "welcome_msg" : "Sample 6: Mimimal - only input and output, with transparency and welcome msg\n***************\nType 'exit' to quit\nType 'help'/'?' for help\nType '? shell' for examples of python commands",
+        "welcome_msg_color" : [0,255,0]
+    },
+    "input" : {
+        "font_file" : "pygame_console/fonts/JackInput.ttf",
+        "bck_alpha" : 0
+    },
+    "output" : {
+        "font_file" : "pygame_console/fonts/JackInput.ttf",
+        "bck_alpha" : 0,
+        "display_lines" : 20,
+        "display_columns" : 100
+    }
+}

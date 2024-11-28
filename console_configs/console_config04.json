@@ -1,0 +1,13 @@
+{
+    "header" : {
+        "font_file" : "pygame_console/fonts/IBMPlexMono-Regular.ttf",
+        "text" : "Sample 4: Minimal - only header and footer. Current Position: {} ",
+        "text_params" : [[null,"cons_get_pos"]],												
+        "layout" : ["SCROLL_LEFT_CONTINUOUS", 0, 2]
+    },
+    "footer" : {						
+        "text" : "Sample 4: Minimal - only header and footer ",
+        "layout" : ["SCROLL_RIGHT_CONTINUOUS",100,1],
+        "font_file" : "pygame_console/fonts/IBMPlexMono-Regular.ttf"
+    }
+}

@@ -14,7 +14,7 @@ class TestObject:
     Print moving square on the screen with the console
     '''
 
-    def __init__(self):
+    def __init__(self, console_config_file):
 
         pygame.init()
         self.screen = pygame.display.set_mode((800, 600))
@@ -29,7 +29,7 @@ class TestObject:
             ********************************
         '''
         # Generate random console config (no parameter) or specify the layout by nums 1 to 6
-        console_config = self.get_console_config(1)
+        console_config = self.get_console_config_json(console_config_file)
 
         # Create console based on the config - feel free to implement custom code to read the config directly from json
         self.console = Console(self, self.screen.get_width(), console_config)
@@ -114,200 +114,27 @@ class TestObject:
             ' Cursor pos: ' + str(self.console.console_input.cursor_position) +
             ' Buffer pos: ' + str(self.console.console_input.buffer_offset))
 
-    def get_console_config(self, sample=None):
+    def get_console_config_json(self, config_file_path: str):
         
-        # Select random console from 1 to 6
-        if not sample: sample = randint(1,6)
-        
-        # Sample 1: Full console features + top animation with 2s timing
-        if sample == 1:
-            return {
-                    'global' : {
-                        'cmd_pckg_path': 'pygame_console.commands',
-                        'script_path': 'pygame_console/scripts/',
-                        'animation': ['TOP', 2000],
-                        'layout' : 'INPUT_BOTTOM',
-                        'padding' : (10,10,20,20),
-                        'bck_color' : (125,125,125),
-                        'bck_image' : 'pygame_console/backgrounds/quake.png',
-                        'bck_image_resize' : True,
-                        'bck_alpha' : 150,
-                        'welcome_msg' : 'Sample 1: Full feature console + top animation with 2s timing\n***************\nType "exit" to quit\nType "help"/"?" for help\nType "? shell" for examples of python commands',
-                        'welcome_msg_color' : (0,255,0),
-                        },
-                    'header' : {
-                        'text' : 'Console v0.1. Position: {} Time: {} ',
-                        'text_params' : [[None, 'cons_get_pos'], [None,'cons_get_time']],												
-                        'layout' : ['SCROLL_LEFT_CONTINUOUS', 0, 2],
-                        'padding' :(10,10,10,10),
-                        'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
-                        'font_size' : 12,
-                        'font_antialias' : True,
-                        'font_color' : (255,255,255),
-                        'font_bck_color' : None,
-                        'bck_color' : (255,0,0),
-                        'bck_image' : 'pygame_console/backgrounds/quake.png',
-                        'bck_image_resize' : True,
-                        'bck_alpha' : 100
-                        },
-                    'output' : {
-                        'padding' : (10,10,10,10),
-                        'font_file' : 'pygame_console/fonts/JackInput.ttf',
-                        'font_size' : 16,
-                        'font_antialias' : True,
-                        'font_color' : (255,255,255),
-                        'font_bck_color' : (55,0,0),
-                        'bck_color' : (55,0,0),
-                        'bck_alpha' : 120,
-                        'buffer_size' : 100,
-                        'display_lines' : 20,
-                        'display_columns' : 100,
-                        'line_spacing' : None
-                        },
-                    'input' : {
-                        'padding' : (10,10,10,10),
-                        'font_file' : 'pygame_console/fonts/JackInput.ttf',
-                        'font_size' : 16,
-                        'font_antialias' : True,
-                        'font_color' : (255,0,0),
-                        'font_bck_color' : None,
-                        'bck_color' : (0,255,0),
-                        'bck_alpha' : 75,
-                        'prompt' : '>>>',
-                        'max_string_length' : 10,
-                        'repeat_keys_initial_ms' : 400,
-                        'repeat_keys_interval_ms' :35
-                        },
-                    'footer' : {						
-                        'text' : '{} ',
-                        'text_params' : [[None, 'cons_get_input_spacing']],
-                        'layout' : ['SCROLL_RIGHT_CONTINUOUS',100,1],
-                        'padding' : (10,10,10,10),
-                        'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
-                        'font_size' : 10,
-                        'font_antialias' : True,
-                        'font_color' : (255,255,255),
-                        'font_bck_color' : None,
-                        'bck_color' : (0,0,0),
-                        'bck_image' : None,
-                        'bck_image_resize' : True,
-                        'bck_alpha' : 100
-                        }
-                    }
+        import json, re
 
-        # Sample 2: Full featured - no footer, no header + bottom animation with default timing and INPUT_TOP layout
-        if sample == 2:
-            return {
-                    'global' : {
-                        'cmd_pckg_path': 'commands',
-                        'script_path': 'pygame_console/scripts/',
-                        'animation' : ['BOTTOM'],
-                        'layout' : 'INPUT_TOP',
-                        'padding' : (10,10,20,20),
-                        'bck_color' : (125,125,125),
-                        'bck_image' : 'pygame_console/backgrounds/quake.png',
-                        'bck_image_resize' : True,
-                        'bck_alpha' : 150,
-                        'welcome_msg' : 'Sample 2: Full featured, no footer, no header + bottom animation + Input top layout\n***************\nType "exit" to quit\nType "help"/"?" for help\nType "? shell" for examples of python commands',
-                        'welcome_msg_color' : (0,255,0),
-                        },
-                    'output' : {
-                        'padding' : (10,10,10,10),
-                        'font_file' : 'pygame_console/fonts/JackInput.ttf',
-                        'font_size' : 16,
-                        'font_antialias' : True,
-                        'font_color' : (255,255,255),
-                        'font_bck_color' : (55,0,0),
-                        'bck_color' : (55,0,0),
-                        'bck_alpha' : 120,
-                        'buffer_size' : 100,
-                        'display_lines' : 20,
-                        'display_columns' : 100,
-                        'line_spacing' : None							
-                        },
-                    'input' : {
-                        'padding' : (10,10,10,10),
-                        'font_file' : 'pygame_console/fonts/JackInput.ttf',
-                        'font_size' : 16,
-                        'font_antialias' : True,
-                        'font_color' : (255,0,0),
-                        'font_bck_color' : None,
-                        'bck_color' : (0,255,0),
-                        'bck_alpha' : 75,
-                        'prompt' : '>>>',
-                        'max_string_length' : 10,
-                        'repeat_keys_initial_ms' : 400,
-                        'repeat_keys_interval_ms' :35
-                        }
-                    }
-        
-        # Sample 3: Mimimal - only header
-        if sample == 3:
-            return {
-                'header' : {
-                    'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
-                    'text' : 'Sample 3: Minimal - only header. Current Time: {} ',
-                    'text_params' : [[None, 'cons_get_time']],												
-                    'layout' : ['SCROLL_LEFT_CONTINUOUS', 0, 2],
-                    }
-                }
+        try:
+            with open(config_file_path, 'r') as json_file:
+                json_data = json_file.read()
+                return json.loads(re.sub("[^:]//.*","", json_data, flags=re.MULTILINE)) # Remove C-style comments before processing JSON
+        except FileNotFoundError:
+            raise
 
-        # Sample 4: Mimimal - only header and footer
-        if sample == 4:
-            return {
-                'header' : {
-                    'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
-                    'text' : 'Sample 4: Minimal - only header and footer. Current Position: {} ',
-                    'text_params' : [[None,'cons_get_pos']],												
-                    'layout' : ['SCROLL_LEFT_CONTINUOUS', 0, 2]
-                    },
-                'footer' : {						
-                    'text' : 'Sample 4: Minimal - only header and footer ',
-                    'layout' : ['SCROLL_RIGHT_CONTINUOUS',100,1],
-                    'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf'
-                    }
-                }
 
-        # Sample 5: Mimimal - only header and input, output on stdout
-        if sample == 5:
-            return {
-                'header' : {
-                    'font_file' : 'pygame_console/fonts/IBMPlexMono-Regular.ttf',
-                    'text' : 'Sample 5: Minimal - only header and input, output on stdout. Current Pos: {} ',
-                    'text_params' : [[None,'cons_get_pos']],												
-                    'layout' : ['TEXT_CENTRE']
-                    },
-                'input' : {
-                    'font_file' : 'pygame_console/fonts/JackInput.ttf'
-                    }
-                }
+if __name__ == '__main__':
+    
+    # Initiate testing 'game' - select suitable configuration
+    t = TestObject(console_config_file="console_configs/console_config01.json")
+    #t = TestObject(console_config_file="console_configs/console_config02.json")
+    #t = TestObject(console_config_file="console_configs/console_config03.json")
+    #t = TestObject(console_config_file="console_configs/console_config04.json")
+    #t = TestObject(console_config_file="console_configs/console_config05.json")
+    #t = TestObject(console_config_file="console_configs/console_config06.json")
 
-        # Sample 6: Mimimal - only input and output, with transparency and welcome msg
-        if sample == 6:
-            return {
-                'global' : {
-                    'cmd_pckg_path': 'commands',
-                    'script_path': 'pygame_console/scripts/',
-                    'layout' : 'INPUT_BOTTOM',
-                    'padding' : (10,10,10,10),
-                    'bck_alpha' : 150,
-                    'welcome_msg' : 'Sample 6: Mimimal - only input and output, with transparency and welcome msg\n***************\nType "exit" to quit\nType "help"/"?" for help\nType "? shell" for examples of python commands',
-                    'welcome_msg_color' : (0,255,0)
-                    },
-                'input' : {
-                    'font_file' : 'pygame_console/fonts/JackInput.ttf',
-                    'bck_alpha' : 0
-                    },
-                'output' : {
-                    'font_file' : 'pygame_console/fonts/JackInput.ttf',
-                    'bck_alpha' : 0,
-                    'display_lines' : 20,
-                    'display_columns' : 100
-                    }
-                }
-
-# Initiate testing 'game'
-t = TestObject()
-
-# Enter the infinite loop - press Esc to exit or type 'exit' into the console
-t.update()
+    # Enter the infinite loop - press Esc to exit or type 'exit' into the console
+    t.update()

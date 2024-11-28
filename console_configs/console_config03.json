@@ -1,0 +1,8 @@
+{
+    "header" : {
+        "font_file" : "pygame_console/fonts/IBMPlexMono-Regular.ttf",
+        "text" : "Sample 3: Minimal - only header. Current Time: {} ",
+        "text_params" : [[null, "cons_get_time"]],												
+        "layout" : ["SCROLL_LEFT_CONTINUOUS", 0, 2]
+    }
+}

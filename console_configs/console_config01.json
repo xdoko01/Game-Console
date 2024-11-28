@@ -1,0 +1,73 @@
+{
+    "global" : {
+        "cmd_pckg_path": "console_commands",
+        "script_path": "console_scripts/",
+        "animation": ["TOP", 2000],
+        "layout" : "INPUT_BOTTOM",
+        "padding" : [10,10,20,20],
+        "bck_color" : [125,125,125],
+        "bck_image" : "pygame_console/backgrounds/quake.png",
+        "bck_image_resize" : true,
+        "bck_alpha" : 150,
+        "welcome_msg" : "Sample 1: Full feature console + top animation with 2s timing\n***************\nType 'exit' to quit\nType 'help'/'?' for help\nType '? shell' for examples of python commands",
+        "welcome_msg_color" : [0,255,0]
+    },
+    "header" : {
+        "text" : "Console v0.1. Position: {} Time: {} ",
+        "text_params" : [[null, "cons_get_pos"], [null,"cons_get_time"]],												
+        "layout" : ["SCROLL_LEFT_CONTINUOUS", 0, 2],
+        "padding" :[10,10,10,10],
+        "font_file" : "pygame_console/fonts/IBMPlexMono-Regular.ttf",
+        "font_size" : 12,
+        "font_antialias" : true,
+        "font_color" : [255,255,255],
+        "font_bck_color" : null,
+        "bck_color" : [255,0,0],
+        "bck_image" : "pygame_console/backgrounds/quake.png",
+        "bck_image_resize" : true,
+        "bck_alpha" : 100
+    },
+    "output" : {
+        "padding" : [10,10,10,10],
+        "font_file" : "pygame_console/fonts/JackInput.ttf",
+        "font_size" : 16,
+        "font_antialias" : true,
+        "font_color" : [255,255,255],
+        "font_bck_color" : [55,0,0],
+        "bck_color" : [55,0,0],
+        "bck_alpha" : 120,
+        "buffer_size" : 100,
+        "display_lines" : 20,
+        "display_columns" : 100,
+        "line_spacing" : null
+    },
+    "input" : {
+        "padding" : [10,10,10,10],
+        "font_file" : "pygame_console/fonts/JackInput.ttf",
+        "font_size" : 16,
+        "font_antialias" : true,
+        "font_color" : [255,0,0],
+        "font_bck_color" : null,
+        "bck_color" : [0,255,0],
+        "bck_alpha" : 75,
+        "prompt" : ">>>",
+        "max_string_length" : 10,
+        "repeat_keys_initial_ms" : 400,
+        "repeat_keys_interval_ms" :35
+    },
+    "footer" : {						
+        "text" : "{} ",
+        "text_params" : [[null, "cons_get_input_spacing"]],
+        "layout" : ["SCROLL_RIGHT_CONTINUOUS",100,1],
+        "padding" : [10,10,10,10],
+        "font_file" : "pygame_console/fonts/IBMPlexMono-Regular.ttf",
+        "font_size" : 10,
+        "font_antialias" : true,
+        "font_color" : [255,255,255],
+        "font_bck_color" : null,
+        "bck_color" : [0,0,0],
+        "bck_image" : null,
+        "bck_image_resize" : true,
+        "bck_alpha" : 100
+    }
+}
