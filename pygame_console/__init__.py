@@ -24,6 +24,7 @@
 		-	console scripts supported in specified directory
 		-	console can be reloaded after the change of configuration
 		- 	console scripts are now supporting parameters, for example `script example3.scr x=100 y=500 color=128 name=MyBrick`
+		-	tabs are now translated to spaces based on tab_spaces parameter
 
 
 	FEATURES TODO
@@ -31,7 +32,7 @@
 
 		-	Customize keys for console via json configuration
 		-	Show optional vertical scroll bar on console output
-		-	handling tabs as spaces - substitute tabs on output by predefined number of spaces
+
 
 
 	How to incorporate in the code
@@ -635,7 +636,8 @@ class TextOutput:
 					'prompt'	: '',
 					'buffer_size': 100,
 					'line_spacing': None,
-					'display_columns': 500
+					'display_columns': 500,
+					'tab_spaces': 4				# substitute tabs with spaces
 		}
 
 		# Merge default values with given values - overwrite defaults by config dict
@@ -813,6 +815,9 @@ class TextOutput:
 
 		# Remove newline at the end
 		text.rstrip()
+
+		# Substitute tabs with predefined number of spaces
+		text = text.replace('\t', self.tab_spaces * ' ') 
 	
 		# Based on newline character put every output line on separate row
 		for text_line in text.split('\n'):
@@ -1074,7 +1079,7 @@ class TextInput:
 					# Regenerate text surfaces
 					self.prepare_surface()
 
-				elif event.key == pl.K_RETURN:
+				elif event.key in (pl.K_RETURN, pl.K_KP_ENTER): # support also enter on keypad
 					# Only store if there is something to store
 					if self.text:
 						self.buffer.append(self.text)
@@ -1140,16 +1145,19 @@ class TextInput:
 
 						# Regenerate text surfaces
 						self.prepare_surface()
-		
+
+			elif event.type == pygame.TEXTINPUT:
 				# Only add new characters if the max limit is not overreached
-				elif len(self.text) < self.max_input_text:					
+				#elif len(self.text) < self.max_input_text:					
+				if len(self.text) < self.max_input_text:					
 					# If no special key is pressed, add unicode of key to input_string
 					self.text = (
 						self.text[:self.cursor_position]
-						+ event.unicode
+						#+ event.unicode
+						+ event.text
 						+ self.text[self.cursor_position:]
 					)
-					self.cursor_position += len(event.unicode)  # Some are empty, e.g. K_UP
+					self.cursor_position += len(event.text)  # Some are empty, e.g. K_UP
 					self.cursor_blit_position = self.font_object.get_rect(self.prompt + self.text[:self.cursor_position]).width
 
 					# Regenerate text surfaces
