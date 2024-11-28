@@ -29,7 +29,6 @@
 	FEATURES TODO
 	*************
 
-		-	fix error with the command buffer
 		-	Customize keys for console via json configuration
 		-	Show optional vertical scroll bar on console output
 		-	handling tabs as spaces - substitute tabs on output by predefined number of spaces
@@ -1117,6 +1116,8 @@ class TextInput:
 					if len(self.buffer) > 0:
 						# Calc new buffer position
 						if self.buffer_offset >= 1: self.buffer_offset = self.buffer_offset - 1
+						if len(self.buffer) == self.buffer_offset: self.buffer_offset = self.buffer_offset + 1 # fix
+						#print(f"{self.buffer_offset=}, {len(self.buffer)=}")
 						# Restore previous input string - last in buffer
 						self.text = self.buffer[self.buffer_offset]						
 						# Set cursor possition at the end of the string
