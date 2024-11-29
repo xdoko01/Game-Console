@@ -45,6 +45,7 @@
 '''
 
 from io import StringIO # for redirection of commands output to the graphical console
+from pathlib import Path
 import sys	# for redirection of stdout to the graphical console
 import pygame # for Surface and graphics init
 import pygame.freetype # for all the fonts
@@ -262,7 +263,7 @@ class CommandLineProcessor(cmd.Cmd):
 		script_params = all_params[1:]
 		verbose_mode = True if all_params[-1] in ['-v', '--verbose'] else False
 
-		script_path = f'{self.script_path}{script_name}'
+		script_path = Path(self.script_path) / script_name
 
 		# Prepare the dictionary with the parameters
 		params_list = [s for s in all_params if s.find('=') >=0]
@@ -1420,6 +1421,41 @@ class Console(pygame.Surface):
 			self.anim_last_time = 0
 			# Initiate variable for storing percentage of shown console surface (0 nothing shown, 100 all shown)
 			self.anim_perc = 0
+
+	def set_cli_app(self, module: str):
+		'''Sets the module/class/function to be used as reference entry point to the game.
+		'''
+		try:
+			import sys
+			self.app=sys.modules[module] # must be called after the cli module is imported
+			self.cli.app = self.app
+		except KeyError:
+			raise ValueError(f"{module} not yet imported. No console CLI module loaded.")
+
+
+		# Get and translate the package-method pairs from text_params parameter
+		try:
+			tmp_text_params = []
+			for pack_method in self.console_header.text_params: # iterate list of pack-method values
+				package, method = pack_method
+				package = self.app if package is None else package # if package is not specified use the console CLI app
+				tmp_text_params.append([package, method])
+			self.console_header.text_params = tmp_text_params
+		except AttributeError:
+			# if self.text_params are not defined, continue
+			pass
+
+		# Get and translate the package-method pairs from text_params parameter
+		try:
+			tmp_text_params = []
+			for pack_method in self.console_footer.text_params: # iterate list of pack-method values
+				package, method = pack_method
+				package = self.app if package is None else package # if package is not specified use the console CLI app
+				tmp_text_params.append([package, method])
+			self.console_footer.text_params = tmp_text_params
+		except AttributeError:
+			# if self.text_params are not defined, continue
+			pass
 
 	def update(self, events):
 		''' Call updates of relevant console parts. If ENTER was pressed, process the command.
