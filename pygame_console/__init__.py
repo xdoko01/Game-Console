@@ -1651,7 +1651,7 @@ class Console(pygame.Surface):
 		# Remember toggle time for smooth animation purposes
 		if self.animation: self.anim_last_time = pygame.time.get_ticks()
 
-		# Delete the memory of keyrepeats - start fresh
+		# Delete the memory of keyrepeats - otherwise it might happen that keys are automatically pressed after toggle
 		self.console_input.keyrepeat_counters.clear()
 
 		# Return the new state
