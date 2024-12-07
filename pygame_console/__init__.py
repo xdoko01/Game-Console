@@ -1652,7 +1652,7 @@ class Console(pygame.Surface):
 		if self.animation: self.anim_last_time = pygame.time.get_ticks()
 
 		# Delete the memory of keyrepeats - start fresh
-		self.console_input.keyrepeat_counters = {}
+		self.console_input.keyrepeat_counters.clear()
 
 		# Return the new state
 		return self.enabled
