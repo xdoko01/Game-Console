@@ -1296,6 +1296,9 @@ class Console(pygame.Surface):
 
 		self.init(app=app, width=width, config=config)
 
+		# Put the initial text on the console in given color - only for the first instantiation
+		if self.console_output: self.write(self.welcome_msg, self.welcome_msg_color)
+
 		# By default console is disabled
 		self.enabled = False
 
@@ -1404,9 +1407,6 @@ class Console(pygame.Surface):
 
 		# Set Console transparency
 		self.set_alpha(self.bck_alpha)
-
-		# Put the initial text on the console in given color
-		if self.console_output: self.write(self.welcome_msg, self.welcome_msg_color)
 
 		''' Animation part - Prepare variables managing animation, if animation is enabled 
 		'''
