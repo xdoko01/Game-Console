@@ -29,7 +29,7 @@
 
 	FEATURES TODO
 	*************
-
+		-	Implement support for bitmap fonts
 		-	Customize keys for console via json configuration
 		-	Show optional vertical scroll bar on console output
 
@@ -42,6 +42,15 @@
 		-	in the main game loop test if console key was pressed - if yes, game.console_enabled = True
 		-	if game.console_enabled = True then after generating game screen, generate also console screen
 		-	show_amim_console for animated spawn in main game class
+'''
+
+from typing import Protocol
+'''
+class ConsoleFont(Protocol):
+    def __init__(self, font_file, font_size):
+        pass
+    def render(self, text, fgcolor=None) -> tuple[pygame.Surface, pygame.Rect]:
+        pass
 '''
 
 from io import StringIO # for redirection of commands output to the graphical console
@@ -949,14 +958,23 @@ class TextInput:
 								the text so it does not cross the console borders
 			- fnt_bck_surf_dim ... dimensions (Rect) of the text background
 		''' 
-		pygame.freetype.init() 
-		self.font_object = pygame.freetype.Font(self.font_file, self.font_size)
 
-		# Determine automatically the hight of the row - height of '|q' string
-		# This prevents the surface to change its height upon different hight of 
-		# characters in input_string.
-		(_, rect_tmp) = self.font_object.render('|q', self.font_color, None)
-		self.line_spacing = rect_tmp.height
+		if self.font_type == "TRUETYPE":
+			pygame.freetype.init() 
+			self.font_object = pygame.freetype.Font(self.font_file, self.font_size)
+
+			# Determine automatically the hight of the row - height of '|q' string
+			# This prevents the surface to change its height upon different hight of 
+			# characters in input_string.
+			(_, rect_tmp) = self.font_object.render('|q', self.font_color, None)
+			self.line_spacing = rect_tmp.height
+
+		elif self.font_type == "BITMAP":
+			from pgconsole.BitmapFont.bitmap_font import BitmapFontFixedHeight
+			self.font_object = BitmapFontFixedHeight(self.font_file, self.font_size)
+			self.line_spacing = self.font_object._get_text_height()
+
+
 
 		#####
 		# Create the main text input surface

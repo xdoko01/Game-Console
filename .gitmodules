@@ -1,9 +1,0 @@
-[submodule "pygame_console/bitmapfont/BitmapFont"]
-	path = pygame_console/bitmapfont/BitmapFont
-	url = https://github.com/xdoko01/BitmapFont
-[submodule "pygame_console/--recursive"]
-	path = pygame_console/--recursive
-	url = https://github.com/xdoko01/BitmapFont
-[submodule "pygame_console/--force"]
-	path = pygame_console/--force
-	url = https://github.com/xdoko01/BitmapFont

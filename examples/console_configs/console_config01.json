@@ -43,7 +43,8 @@
     },
     "input" : {
         "padding" : [10,10,10,10],
-        "font_file" : "pygame_console/fonts/JackInput.ttf",
+        "font_type" : "BITMAP",
+        "font_file" : "pygame_console/BitmapFont/fonts/small_font.json",
         "font_size" : 16,
         "font_antialias" : true,
         "font_color" : [255,0,0],
