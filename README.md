@@ -1,3 +1,6 @@
+# Tasks
+ - [ ] Num pad enter is not copying on TextOutput unlike regular enter key
+ 
 # Game-Console
 Full-featured game console based on pygame that can be integrated in your python game in order to execute python command/scripts/custom in-game functions
 

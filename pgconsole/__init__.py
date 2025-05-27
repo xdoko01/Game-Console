@@ -347,6 +347,7 @@ class Header:
 				are optional. First param specifies layout. Second specifies time in ms for scrolling text. Third param specifies
 				movement speed in pixels.
 			padding (optional, default (0,0,0,0)): Specifies padding between header borders and text in the header. The padding order is UP, DOWN, LEFT, RIGHT
+			font_type (mandatory): Either BITMAP or else TRUETYPE
 			font_file (mandatory): Path to the font file
 			font_size (optional, default 12): Font size
 			font_antialias (optional, default True): Font antialias (True/False)
@@ -367,6 +368,7 @@ class Header:
 					'text_params' : [],
 					'layout' : ['TEXT_LEFT'],
 					'padding' : (0,0,0,0),
+					'font_type' : 'TRUETYPE',
 					'font_size' : 14,
 					'font_antialias' : True,
 					'font_color' : (255,255,255),
@@ -422,8 +424,14 @@ class Header:
 			- fnt_bck_surf_dim ... dimensions (Rect) of the text background
 		''' 
 
-		pygame.freetype.init() 
-		self.font_object = pygame.freetype.Font(str(self.font_file), self.font_size)
+		if self.font_type == "BITMAP":
+			from pgbitmapfont import BitmapFont
+			self.font_object = BitmapFont(path=Path(self.font_file), size=self.font_size, spacing=config.get('font_spacing', (1,0)))
+
+		else:
+			pygame.freetype.init() 
+			self.font_object = pygame.freetype.Font(self.font_file, self.font_size)
+
 
 		# Get the height of the text font line and store it in line_spacing
 		# This is necessary so that the hight of the row spacing is not
@@ -621,11 +629,13 @@ class TextOutput:
 		:param config: Dictionary storing all the configs necessary for correct display of text output. See keys explanation below:
 			
 			padding (optional, default (0,0,0,0)): Specifies padding between text output borders and text. The padding order is UP, DOWN, LEFT, RIGHT
+			font_type (mandatory): Either BITMAP or else TRUETYPE
 			font_file (mandatory): Path to the font file
 			font_size (optional, default 12): Font size
 			font_antialias (optional, default True): Font antialias (True/False)
 			font_color (optional, default (255,255,255)): Font color as tuple with 3 values. Eg. (255,255,255) for white.
 			font_bck_color (optional, default None): Font text background color as tuple with 3 values. Eg. (255,255,255) for white.
+			font_spacing (optional, default (1,0)): Only for font_type = BITMAP. Vertical and Horizontal spaces between the characters.
 			bck_color (optional, default (0,0,0)): Color of the text output background as tuple with 3 values.  Eg. (255,255,255) for white.
 			bck_alpha (optional, default 255): 0-255, if header background should be transparent
 			prompt (optional, default ''): Characters printed on the beginning of every output line.
@@ -637,6 +647,7 @@ class TextOutput:
 		# Dictionary with default values
 		default_config = {
 					'padding' : (0,0,0,0),
+					'font_type' : 'TRUETYPE',
 					'font_size' : 16,
 					'font_antialias' : True,
 					'font_color' : (255,255,255),
@@ -684,8 +695,13 @@ class TextOutput:
 			- fnt_bck_surf_dim ... dimensions (Rect) of the text background
 		''' 
 
-		pygame.freetype.init() 
-		self.font_object = pygame.freetype.Font(str(self.font_file), self.font_size)
+		if self.font_type == "BITMAP":
+			from pgbitmapfont import BitmapFont
+			self.font_object = BitmapFont(path=Path(self.font_file), size=self.font_size, spacing=config.get('font_spacing', (1,0)))
+
+		else:
+			pygame.freetype.init() 
+			self.font_object = pygame.freetype.Font(self.font_file, self.font_size)
 
 		# Get the height of the text font line and store it in line_spacing
 		# This is necessary so that the hight of the row spacing is not
@@ -836,8 +852,10 @@ class TextOutput:
 			if text_line:
 
 				# How many characters can we put one one line - minimal from setup and what can fit on the screen
-				self.display_columns = min(self.display_columns, self.width // self.font_object.get_metrics("_")[0][1])
-				
+				# TEMPORARILY DISABLING AS BITMAPFONT does not have this get_metrics function self.display_columns = min(self.display_columns, self.width // self.font_object.get_metrics("_")[0][1])
+				self.display_columns = min(self.display_columns, self.width // self.font_object.get_rect("_").width)
+
+
 				# Split text_line to the list of strings based on number of displayable characters
 				text_line_parts = [text_line[i:i+self.display_columns] for i in range(0, len(text_line), self.display_columns)]	
 
@@ -885,11 +903,13 @@ class TextInput:
 		:param config: Dictionary storing all the configs necessary for correct display of text input. See keys explanation below:
 
 			padding (optional, default (0,0,0,0)): Specifies padding between text input borders and text itself. The padding order is UP, DOWN, LEFT, RIGHT.
+			font_type (mandatory): Either BITMAP or else TRUETYPE
 			font_file (mandatory): Path to the font file.
 			font_size (optional, default 12): Font size.
 			font_antialias (optional, default True): Font antialias (True/False).
 			font_color (optional, default (255,255,255)): Font color as tuple with 3 values. Eg. (255,255,255) for white.
 			font_bck_color (optional, default None): Font text background color as tuple with 3 values. Eg. (255,255,255) for white.
+			font_spacing (optional, default (1,1)): Only for font_type = BITMAP. Vertical and Horizontal spaces between the characters.
 			bck_color (optional, default (0,0,0)): Color of the header background as tuple with 3 values.  Eg. (255,255,255) for white.
 			bck_alpha (optional, default 255): 0-255, if text input background should be transparent.
 			prompt (optional, default '>'): Characters printed on the beginning of every input line.
@@ -907,6 +927,7 @@ class TextInput:
 		# Dictionary with default values
 		default_config = {
 					'padding' : (0,0,0,0),
+					'font_type' : 'TRUETYPE',
 					'font_size' : 16,
 					'font_antialias' : True,
 					'font_color' : (255,255,255),
@@ -959,20 +980,20 @@ class TextInput:
 			- fnt_bck_surf_dim ... dimensions (Rect) of the text background
 		''' 
 
-		if self.font_type == "TRUETYPE":
+		if self.font_type == "BITMAP":
+			from pgbitmapfont import BitmapFont
+			self.font_object = BitmapFont(path=Path(self.font_file), size=self.font_size, spacing=config.get('font_spacing', (1,0)))
+
+		else:
 			pygame.freetype.init() 
 			self.font_object = pygame.freetype.Font(self.font_file, self.font_size)
 
-			# Determine automatically the hight of the row - height of '|q' string
-			# This prevents the surface to change its height upon different hight of 
-			# characters in input_string.
-			(_, rect_tmp) = self.font_object.render('|q', self.font_color, None)
-			self.line_spacing = rect_tmp.height
 
-		elif self.font_type == "BITMAP":
-			from pgconsole.BitmapFont.bitmap_font import BitmapFontFixedHeight
-			self.font_object = BitmapFontFixedHeight(self.font_file, self.font_size)
-			self.line_spacing = self.font_object._get_text_height()
+		# Determine automatically the hight of the row - height of '|q' string
+		# This prevents the surface to change its height upon different hight of 
+		# characters in input_string.
+		(_, rect_tmp) = self.font_object.render('|q', self.font_color, None)
+		self.line_spacing = rect_tmp.height
 
 
 

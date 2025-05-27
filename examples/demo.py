@@ -135,12 +135,14 @@ class TestObject:
 if __name__ == '__main__':
     
     # Initiate testing 'game' - select suitable configuration
-    #t = TestObject(console_config_file="console_configs/console_config01.json")
-    #t = TestObject(console_config_file="console_configs/console_config02.json")
-    #t = TestObject(console_config_file="console_configs/console_config03.json")
-    t = TestObject(console_config_file="console_configs/console_config04.json")
-    #t = TestObject(console_config_file="console_configs/console_config05.json")
-    #t = TestObject(console_config_file="console_configs/console_config06.json")
+    #t = TestObject(console_config_file="examples/configs/console_config_01.json")
+    t = TestObject(console_config_file="examples/configs/console_config_01b.json")
+
+    #t = TestObject(console_config_file="examples/configs/console_config_02.json")
+    #t = TestObject(console_config_file="examples/configs/console_config_03.json")
+    #t = TestObject(console_config_file="examples/configs/console_config_04.json")
+    #t = TestObject(console_config_file="examples/configs/console_config_05.json")
+    #t = TestObject(console_config_file="examples/configs/console_config_06.json")
 
     # Enter the infinite loop - press Esc to exit or type 'exit' into the console
     t.update()
