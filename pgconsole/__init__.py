@@ -30,8 +30,8 @@
 
 	FEATURES TODO
 	*************
-		-	Customize keys for console via json configuration
 		-	Show optional vertical scroll bar on console output
+		-	New configuration for running a console script right after console initiation
 
 
 	How to incorporate in the code

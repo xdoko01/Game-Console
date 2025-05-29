@@ -5,7 +5,7 @@
 # Game-Console
 Full-featured game console based on pygame that can be integrated in your python game in order to execute python command/scripts/custom in-game functions
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/02_console01_start.png)
+![screenshot](docs/02_console01_start.png)
 
 ## Main Features
 * fully configurable look&feel via json - fonts, pictures, commands, console layouts, paddings, scrolling text and more
