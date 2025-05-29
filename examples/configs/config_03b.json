@@ -1,0 +1,15 @@
+{
+    "header" : {
+        "font_type" : "BITMAP",
+        //"font_file" : "examples/fonts/bitmap/small_font.json", "font_size" : 16, "font_spacing": [1,0],
+        //"font_file" : "examples/fonts/bitmap/charset_id1.json", "font_size" : 16, "font_spacing": [-1,0],
+        "font_file" : "examples/fonts/bitmap/charset_id5.json", "font_size" : 32, "font_spacing": [0,0],
+        //"font_file" : "examples/fonts/bitmap/charset_moon1.json", "font_size" : 16, "font_spacing": [0,0],
+        //"font_file" : "examples/fonts/bitmap/good_neighbours_font.json", "font_size" : 16, "font_spacing": [0,0],
+        //"font_file" : "examples/fonts/bitmap/red_gradient_capital_font.json", "font_size" : 16, "font_spacing": [2,0],
+
+        "text" : "Sample 3: Minimal - only header. Current Time: {} ",
+        "text_params" : [[null, "cons_get_time"]],												
+        "layout" : ["SCROLL_LEFT_CONTINUOUS", 0, 2]
+    }
+}

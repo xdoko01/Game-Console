@@ -43,7 +43,6 @@
     },
     "input" : {
         "padding" : [10,10,10,10],
-        "font_type" : "TRUETYPE",
         "font_file" : "examples/fonts/truetype/JackInput.ttf", 
         "font_size" : 16, 
         "font_spacing": [2,0],

@@ -25,14 +25,13 @@
 		-	console can be reloaded after the change of configuration
 		- 	console scripts are now supporting parameters, for example `script example3.scr x=100 y=500 color=128 name=MyBrick`
 		-	tabs are now translated to spaces based on tab_spaces parameter
+		-	support for both bitmap and truetype fonts
 
 
 	FEATURES TODO
 	*************
-		-	Implement support for bitmap fonts
 		-	Customize keys for console via json configuration
 		-	Show optional vertical scroll bar on console output
-
 
 
 	How to incorporate in the code
@@ -42,15 +41,6 @@
 		-	in the main game loop test if console key was pressed - if yes, game.console_enabled = True
 		-	if game.console_enabled = True then after generating game screen, generate also console screen
 		-	show_amim_console for animated spawn in main game class
-'''
-
-from typing import Protocol
-'''
-class ConsoleFont(Protocol):
-    def __init__(self, font_file, font_size):
-        pass
-    def render(self, text, fgcolor=None) -> tuple[pygame.Surface, pygame.Rect]:
-        pass
 '''
 
 from io import StringIO # for redirection of commands output to the graphical console
@@ -1691,7 +1681,7 @@ class Console(pygame.Surface):
 		if self.animation: self.anim_last_time = pygame.time.get_ticks()
 
 		# Delete the memory of keyrepeats - otherwise it might happen that keys are automatically pressed after toggle
-		self.console_input.keyrepeat_counters.clear()
+		if self.console_input: self.console_input.keyrepeat_counters.clear() 
 
 		# Return the new state
 		return self.enabled

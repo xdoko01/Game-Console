@@ -135,14 +135,24 @@ class TestObject:
 if __name__ == '__main__':
     
     # Initiate testing 'game' - select suitable configuration
-    #t = TestObject(console_config_file="examples/configs/console_config_01.json")
-    t = TestObject(console_config_file="examples/configs/console_config_01b.json")
+    #t = TestObject(console_config_file="examples/configs/config_01.json")
+    #t = TestObject(console_config_file="examples/configs/config_01b.json")
 
-    #t = TestObject(console_config_file="examples/configs/console_config_02.json")
-    #t = TestObject(console_config_file="examples/configs/console_config_03.json")
-    #t = TestObject(console_config_file="examples/configs/console_config_04.json")
-    #t = TestObject(console_config_file="examples/configs/console_config_05.json")
-    #t = TestObject(console_config_file="examples/configs/console_config_06.json")
+    #t = TestObject(console_config_file="examples/configs/config_02.json")
+    #t = TestObject(console_config_file="examples/configs/config_02b.json")
+
+    #t = TestObject(console_config_file="examples/configs/config_03.json")
+    #t = TestObject(console_config_file="examples/configs/config_03b.json")
+
+    #t = TestObject(console_config_file="examples/configs/config_04.json")
+    #t = TestObject(console_config_file="examples/configs/config_04b.json")
+
+    #t = TestObject(console_config_file="examples/configs/config_05.json")
+    #t = TestObject(console_config_file="examples/configs/config_05b.json")
+    
+    #t = TestObject(console_config_file="examples/configs/config_06.json")
+    t = TestObject(console_config_file="examples/configs/config_06b.json")
+
 
     # Enter the infinite loop - press Esc to exit or type 'exit' into the console
     t.update()

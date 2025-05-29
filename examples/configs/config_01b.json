@@ -20,7 +20,7 @@
 
         "font_type" : "BITMAP",
         //"font_file" : "examples/fonts/bitmap/small_font.json", "font_size" : 16, "font_spacing": [1,0],
-        "font_file" : "examples/fonts/bitmap/charset_id1.json", "font_size" : 16, "font_spacing": [0,0],
+        "font_file" : "examples/fonts/bitmap/charset_id1.json", "font_size" : 12, "font_spacing": [-1,0],
         //"font_file" : "examples/fonts/bitmap/charset_id5.json", "font_size" : 32, "font_spacing": [0,0],
         //"font_file" : "examples/fonts/bitmap/charset_moon1.json", "font_size" : 16, "font_spacing": [0,0],
         //"font_file" : "examples/fonts/bitmap/good_neighbours_font.json", "font_size" : 16, "font_spacing": [0,0],
@@ -39,12 +39,12 @@
 
         "font_type" : "BITMAP",
         //"font_file" : "examples/fonts/bitmap/small_font.json", "font_size" : 16, "font_spacing": [1,0],
-        //"font_file" : "examples/fonts/bitmap/charset_id1.json", "font_size" : 12, "font_spacing": [-1,0],
+        "font_file" : "examples/fonts/bitmap/charset_id1.json", "font_size" : 16, "font_spacing": [-1,0],
         //"font_file" : "examples/fonts/bitmap/charset_id5.json", "font_size" : 32, "font_spacing": [0,0],
         //"font_file" : "examples/fonts/bitmap/charset_moon1.json", "font_size" : 16, "font_spacing": [0,0],
         //"font_file" : "examples/fonts/bitmap/good_neighbours_font.json", "font_size" : 16, "font_spacing": [0,0],
         //"font_file" : "examples/fonts/bitmap/red_gradient_capital_font.json", "font_size" : 16, "font_spacing": [2,0],
-        "font_file" : "examples/fonts/bitmap/simple.json", "font_size" : 12, "font_spacing": [-2,0],
+        //"font_file" : "examples/fonts/bitmap/simple.json", "font_size" : 12, "font_spacing": [-2,0],
 
         "font_antialias" : true,
         "font_color" : [255,255,255],
@@ -60,7 +60,7 @@
         "padding" : [10,10,10,10],
         "font_type" : "BITMAP",
         //"font_file" : "examples/fonts/bitmap/small_font.json", "font_size" : 16, "font_spacing": [1,0],
-        "font_file" : "examples/fonts/bitmap/charset_id1.json", "font_size" : 16, "font_spacing": [0,0],
+        "font_file" : "examples/fonts/bitmap/charset_id1.json", "font_size" : 16, "font_spacing": [-1,0],
         //"font_file" : "examples/fonts/bitmap/charset_id5.json", "font_size" : 32, "font_spacing": [0,0],
         //"font_file" : "examples/fonts/bitmap/charset_moon1.json", "font_size" : 16, "font_spacing": [0,0],
         //"font_file" : "examples/fonts/bitmap/good_neighbours_font.json", "font_size" : 16, "font_spacing": [0,0],
@@ -68,8 +68,8 @@
         "font_antialias" : true,
         "font_color" : [255,255,255],
         "font_bck_color" : null,
-        "bck_color" : [0,255,0],
-        "bck_alpha" : 75,
+        "bck_color" : [0,0,0],
+        "bck_alpha" : 0, // fully transparent
         "prompt" : ">>>",
         "max_string_length" : 10,
         "repeat_keys_initial_ms" : 400,
@@ -83,7 +83,7 @@
 
         "font_type" : "BITMAP",
         //"font_file" : "examples/fonts/bitmap/small_font.json", "font_size" : 16, "font_spacing": [1,0],
-        "font_file" : "examples/fonts/bitmap/charset_id1.json", "font_size" : 8, "font_spacing": [-1,0],
+        "font_file" : "examples/fonts/bitmap/charset_id1.json", "font_size" : 12, "font_spacing": [-1,0],
         //"font_file" : "examples/fonts/bitmap/charset_id5.json", "font_size" : 32, "font_spacing": [0,0],
         //"font_file" : "examples/fonts/bitmap/charset_moon1.json", "font_size" : 16, "font_spacing": [0,0],
         //"font_file" : "examples/fonts/bitmap/good_neighbours_font.json", "font_size" : 16, "font_spacing": [0,0],
