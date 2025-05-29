@@ -2,6 +2,8 @@
     "global" : {
         "cmd_pckg_path": "commands",
         "script_path": "examples/scripts/",
+        "startup_script": "example1.scr",
+        "animation": ["TOP", 3000],
         "layout" : "INPUT_BOTTOM",
         "padding" : [10,10,10,10],
         "bck_alpha" : 150,

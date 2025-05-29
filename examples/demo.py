@@ -4,12 +4,12 @@
 '''
 
 
-#from ..pgconsole import COnsole # for console usage
+#from pgconsole import Console # for console usage
 # If running directly from the repo for testing, you might need to adjust sys.path:
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from pgconsole import Console # Or from bitmapfont.bitmapfont import BitmapFont
+from pgconsole import Console
 
 import pygame
 from random import randint
@@ -134,21 +134,24 @@ class TestObject:
 
 if __name__ == '__main__':
     
-    # Initiate testing 'game' - select suitable configuration
-    #t = TestObject(console_config_file="examples/configs/config_01.json")
-    #t = TestObject(console_config_file="examples/configs/config_01b.json")
+    ####
+    # Initiate testing 'game' - uncomment the wanted configuration file, and comment out the rest
+    ####
 
-    #t = TestObject(console_config_file="examples/configs/config_02.json")
-    #t = TestObject(console_config_file="examples/configs/config_02b.json")
+    #t = TestObject(console_config_file="examples/configs/config_01.jsonc")
+    #t = TestObject(console_config_file="examples/configs/config_01b.jsonc")
 
-    #t = TestObject(console_config_file="examples/configs/config_03.json")
-    #t = TestObject(console_config_file="examples/configs/config_03b.json")
+    #t = TestObject(console_config_file="examples/configs/config_02.jsonc")
+    #t = TestObject(console_config_file="examples/configs/config_02b.jsonc")
 
-    #t = TestObject(console_config_file="examples/configs/config_04.json")
-    #t = TestObject(console_config_file="examples/configs/config_04b.json")
+    #t = TestObject(console_config_file="examples/configs/config_03.jsonc")
+    #t = TestObject(console_config_file="examples/configs/config_03b.jsonc")
 
-    #t = TestObject(console_config_file="examples/configs/config_05.json")
-    #t = TestObject(console_config_file="examples/configs/config_05b.json")
+    #t = TestObject(console_config_file="examples/configs/config_04.jsonc")
+    #t = TestObject(console_config_file="examples/configs/config_04b.jsonc")
+
+    #t = TestObject(console_config_file="examples/configs/config_05.jsonc")
+    #t = TestObject(console_config_file="examples/configs/config_05b.jsonc")
     
     #t = TestObject(console_config_file="examples/configs/config_06.json")
     t = TestObject(console_config_file="examples/configs/config_06b.json")

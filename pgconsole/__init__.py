@@ -1316,6 +1316,7 @@ class Console(pygame.Surface):
 				welcome_msg_color (optional, default (255,255,255)): Color of the console welcome text as tuple with 3 values.
 				cmd_pckg_path (optional, default None): Package, where module with console commands can be found.
 				script_path (optional, default None): Path, where console scripts can be found.
+				startup_script (optional, default None): Path to the script that should be executed after the console is initiated.
 				
 			header (optional section, see Header class for details): Parameters that govern console header configuration.
 			output (optional section, see TextOutput class for details): Parameters that govern console output configuration.
