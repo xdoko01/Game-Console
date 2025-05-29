@@ -805,7 +805,7 @@ class TextOutput:
 					self.buffer_offset = min([max([0, len(self.buffer) - self.display_lines]), self.buffer_offset + self.display_lines])
 					self.prepare_surface()
 
-				elif event.key == pl.K_RETURN:
+				elif event.key in (pl.K_RETURN, pl.K_KP_ENTER): # support also enter on keypad
 					self.buffer_offset = max([0, len(self.buffer) - self.display_lines])
 					self.prepare_surface()
 			
