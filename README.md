@@ -50,7 +50,7 @@ Examples of couple python commands that can be used with the example game are be
 * <code>![a for a in range(10)]</code>      # Prints list of values from 0 to 9 on the output
 * <code>!import os</code>     # Prints 'invalid syntax'. Such python operations are not allowed from the console due to security reasons
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/07_console01_cmd_py.png)
+![screenshot](docs/07_console01_cmd_py.png)
 
 ### Custom Commands
 With game-console you can specify your own commands. For implementing new command called for example <i>dummy</i> that takes one parameter and prints it on the console in the blue color, you need to perform following steps:
@@ -63,12 +63,12 @@ With game-console you can specify your own commands. For implementing new comman
 
 There are already several custom functions implemented in the example game <code>exit</code>, <code>move</code>, and <code>test</code>. The <code>move</code> function takes 2 parameters delimited and changes position of the main game rectancle. The <code>exit</code> command exists the game. The <code>list</code> command shows information about registered commands.
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/03_console01_cmd_input.png)
+![screenshot](docs/03_console01_cmd_input.png)
 
 ### Generic Commands
 All the non-python shell commands can be listed by typing <code>help</code> or simply <code>?</code> on the command line. The example of generic command can be <code>exit</code> that simply quicks the game. Also by typing <code>help move</code> or simply <code>?move</code> will list description of the command.
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/08_console01_cmd_gen.png)
+![screenshot](docs/08_console01_cmd_gen.png)
 
 ### Console Scripts
 Python, Custom and Generic commands can be combined together into the file (one command on each line) and can be executed as a script.
@@ -77,11 +77,11 @@ Example of invoking such simple script is below:
 
 <code>script example1.scr</code>
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/09_console01_cmd_script.png)
+![screenshot](docs/09_console01_cmd_script.png)
 
 If there is an error on some line of the script, you are notified on the console with the error message - see below. The error code corresponds to the return value returned in the exception statement in the code of your custom function.
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/10_console01_cmd_script_err.png)
+![screenshot](docs/10_console01_cmd_script_err.png)
 
 Console scripts also support parameters. See below the example using parameters for `example3.scr` script. Also, console script can be called from other console script.
 
@@ -99,7 +99,7 @@ move $x $y
 
 The parameters are represented as keys starting with `$` in the source of the console script.
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/12_console01_cmd_script_params.png)
+![screenshot](docs/12_console01_cmd_script_params.png)
 
 ### Dynamic information in header/footer
 As mentioned above, header or footer can display dynamic data. Those data are gained as a resulf of calling of some function of the main game class. In the example game, you will see <i>time</i> and game object <i>position</i> as some of the examples of such dynamic values.
@@ -109,7 +109,7 @@ If you want to have dynamic values in your console, you need to do the following
 * Implement functions that return the requested values in string time somewhere in your game class or alternativelly in some separate module. In case of our example game there are functions <code>cons_get_pos()</code> and <code>cons_get_time()</code>. Check the code for details.
 * Specify the function in configuration json. See the folder `console_configs` for examples of different configurations. Also, see below parameters `text` and `text_params` where the functions and its placement in the scrolling text is defined.
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/11_dynamic_text_config.png)
+![screenshot](docs/11_dynamic_text_config.png)
 
 ## Changing console layout/configuration
 A mentioned in the list of features, console enables heavy configuration. I suggest you to see example console configs in the `console_configs` directory and get inspiration from 6 configurations that are predifined there.
@@ -121,7 +121,7 @@ Below you can see the pictures of those configurations in the game.
 * Animation upon displaying hidding of the console set to 2s
 * Different fonts for different console parts
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf01.png)
+![screenshot](docs/ConsoleConf01.png)
 
 ### Sample Layout 2
 * Header and footer omitted by configuration
@@ -130,31 +130,31 @@ Below you can see the pictures of those configurations in the game.
 * Command line input is above console output part
 * Different fonts for different console parts
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf02.png)
+![screenshot](docs/ConsoleConf02.png)
 
 ### Sample Layout 3
 * Totaly minimalistic - only header with dynamic text shown
 * No transparency, no wallpapers
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf03.png)
+![screenshot](docs/ConsoleConf03.png)
 
 ### Sample Layout 4
 * Minimalistic - only header and footer with dynamic text shown
 * No transparency, no wallpapers
 * Header and footer are scrolling by different speed
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf04.png)
+![screenshot](docs/ConsoleConf04.png)
 
 ### Sample Layout 5
 * Minimalistic - only input and header with dynamic text shown
 * No transparency, no wallpapers
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf05.png)
+![screenshot](docs/ConsoleConf05.png)
 
 ### Sample Layout 6
 * Minimalistic - only input and output with transparency
 
-![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/ConsoleConf06.png)
+![screenshot](docs/ConsoleConf06.png)
 
 ## How to integrate console into the game
  
@@ -164,7 +164,7 @@ Below you can see the pictures of those configurations in the game.
  * For reading the input keys and process them by console call <code>update()</code> function
  * For showing the console use <code>show()</code> function. Animation effect is processed internally.
  
- ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/Integr01.png)
- ![screenshot](https://github.com/xdoko01/Game-Console/blob/master/pygame_console/docs/Integr02.png)
+ ![screenshot](docs/Integr01.png)
+ ![screenshot](docs/Integr02.png)
 
  
