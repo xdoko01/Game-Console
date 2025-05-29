@@ -1,0 +1,7 @@
+{
+    "font_image" : "red_gradient_capital_font.png",
+    "font_color" : "#FF0000",
+    "colorkey" : "#000000",
+    "separator_color" : "#7F7F7F",
+    "character_order" : ["Aa", "Bb", "Cc", "Dd", "Ee", "Ff", "Gg", "Hh", "Ii", "Jj", "Kk", "Ll", "Mm", "Nn", "Oo", "Pp", "Qq", "Rr", "Ss", "Tt", "Uu", "Vv", "Ww", "Xx", "Yy", "Zz", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "!", "?", " "]
+}

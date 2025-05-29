@@ -1,7 +1,7 @@
 {
     "global" : {
-        "cmd_pckg_path": "console_commands",
-        "script_path": "console_scripts/",
+        "cmd_pckg_path": "commands",
+        "script_path": "scripts/",
         "layout" : "INPUT_BOTTOM",
         "padding" : [10,10,10,10],
         "bck_alpha" : 150,
@@ -9,11 +9,11 @@
         "welcome_msg_color" : [0,255,0]
     },
     "input" : {
-        "font_file" : "pygame_console/fonts/JackInput.ttf",
+        "font_file" : "examples/fonts/truetype/JackInput.ttf",
         "bck_alpha" : 0
     },
     "output" : {
-        "font_file" : "pygame_console/fonts/JackInput.ttf",
+        "font_file" : "examples/fonts/truetype/JackInput.ttf",
         "bck_alpha" : 0,
         "display_lines" : 20,
         "display_columns" : 100

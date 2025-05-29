@@ -3,9 +3,15 @@
 	For showing/hiding console press F1
 '''
 
-import pygame
 
-from  pygame_console import Console
+#from ..pgconsole import COnsole # for console usage
+# If running directly from the repo for testing, you might need to adjust sys.path:
+import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from pgconsole import Console # Or from bitmapfont.bitmapfont import BitmapFont
+
+import pygame
 from random import randint
 from datetime import datetime
 
@@ -129,12 +135,24 @@ class TestObject:
 if __name__ == '__main__':
     
     # Initiate testing 'game' - select suitable configuration
-    t = TestObject(console_config_file="console_configs/console_config01.json")
-    #t = TestObject(console_config_file="console_configs/console_config02.json")
-    #t = TestObject(console_config_file="console_configs/console_config03.json")
-    #t = TestObject(console_config_file="console_configs/console_config04.json")
-    #t = TestObject(console_config_file="console_configs/console_config05.json")
-    #t = TestObject(console_config_file="console_configs/console_config06.json")
+    #t = TestObject(console_config_file="examples/configs/config_01.json")
+    #t = TestObject(console_config_file="examples/configs/config_01b.json")
+
+    #t = TestObject(console_config_file="examples/configs/config_02.json")
+    #t = TestObject(console_config_file="examples/configs/config_02b.json")
+
+    #t = TestObject(console_config_file="examples/configs/config_03.json")
+    #t = TestObject(console_config_file="examples/configs/config_03b.json")
+
+    #t = TestObject(console_config_file="examples/configs/config_04.json")
+    #t = TestObject(console_config_file="examples/configs/config_04b.json")
+
+    #t = TestObject(console_config_file="examples/configs/config_05.json")
+    #t = TestObject(console_config_file="examples/configs/config_05b.json")
+    
+    #t = TestObject(console_config_file="examples/configs/config_06.json")
+    t = TestObject(console_config_file="examples/configs/config_06b.json")
+
 
     # Enter the infinite loop - press Esc to exit or type 'exit' into the console
     t.update()

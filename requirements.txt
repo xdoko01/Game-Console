@@ -1,2 +1,2 @@
-pygame>=1.9.4
-
+pygame>=2.0.0
+pgbitmapfont>=0.1.3
