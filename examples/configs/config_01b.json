@@ -1,7 +1,7 @@
 {
     "global" : {
         "cmd_pckg_path": "commands",
-        "script_path": "scripts/",
+        "script_path": "examples/scripts/",
         "animation": ["TOP", 2000],
         "layout" : "INPUT_BOTTOM",
         "padding" : [10,10,20,20],

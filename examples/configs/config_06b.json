@@ -1,7 +1,7 @@
 {
     "global" : {
         "cmd_pckg_path": "commands",
-        "script_path": "scripts/",
+        "script_path": "examples/scripts/",
         "layout" : "INPUT_BOTTOM",
         "padding" : [10,10,10,10],
         "bck_alpha" : 150,
