@@ -163,8 +163,8 @@ class CommandLineProcessor(cmd.Cmd):
 
 	def do_list(self, params):
 		'''List of all commands'''
-		self.output.write(f'Registered commands: {self._cmd_scripts.keys()}')
-		self.output.write(f'See the {self.cmd_pckg_path} package for list of all scripted commands')
+		self.output.write(f'Registered commands: {self._cmd_scripts.keys()}', color=self.output.font_color_info)
+		self.output.write(f'See the {self.cmd_pckg_path} package for list of all scripted commands', color=self.output.font_color_info)
 
 	
 	def do_EOF(self, params):
@@ -197,7 +197,7 @@ class CommandLineProcessor(cmd.Cmd):
 			exec('Result = ' + params, globals_param, locals_param)
 			Result = locals_param.get('Result')
 		except Exception as E:
-			self.output.write(str(E))
+			self.output.write(str(E), color=self.output.font_color_error)
 			return -1
 		finally:
 			self.output.write(str(console_out.getvalue()))
@@ -219,7 +219,7 @@ class CommandLineProcessor(cmd.Cmd):
 			self.output.write(str(console_out.getvalue())) # write anything to the console
 		except Exception as E:
 			#self.output.write(str(console_out.getvalue()))
-			self.output.write(str(E))
+			self.output.write(str(E), color=self.output.font_color_error)
 			return -1
 		finally:
 			sys.stdout = sys.__stdout__ # restore the output buffer to original system output
@@ -272,13 +272,18 @@ class CommandLineProcessor(cmd.Cmd):
 			params_dict[param_key] = param_value
 
 		# Debugs
-		#(f'{all_params=}\n{no_of_params=}\n{script_name=}\n{script_params=}\n{verbose_mode=}\n{script_path=}\n{params_list=}\n{params_dict=}')
+		#print(f'{all_params=}\n{no_of_params=}\n{script_name=}\n{script_params=}\n{verbose_mode=}\n{script_path=}\n{params_list=}\n{params_dict=}')
 
 		try:
 			# Open script file
 			with open(script_path) as f:
-				# For each line execute self.onecmd(line)
-				if verbose_mode: self.output.write('>S>Script ' + script_path + ' started.')
+
+				# Start time
+				start_tick = pygame.time.get_ticks()
+
+				# Show additional info if script runs in verbose mode
+				if verbose_mode: self.output.write(f"SCRIPT '{script_name}': Started ...", color=self.output.font_color_info)
+
 
 				script_line = f.readline()
 				script_line_no = 1
@@ -294,24 +299,31 @@ class CommandLineProcessor(cmd.Cmd):
 						cmd_line = cmd_line.replace(f'${param_key}', param_value)
 
 					# Execute the command, now when all parameters are substituted with their values
-					#print(f'About to execute following cmd: {cmd_line=}')
 					error = self.onecmd(cmd_line)
-					if error: raise
-					else: script_line = f.readline()
-			
-			# Inform that script has ended
-			if verbose_mode: self.output.write('>S>Script finished successfully.')
+
+					# Raise an exception on error
+					if error: 
+						raise
+					else: 
+						script_line = f.readline()
+
 			return None
 
 		except FileNotFoundError:
-			self.output.write('Script file "' + str(script_path) + '" not found.')
+			self.output.write('Script file "' + str(script_path) + '" not found.', color=self.output.font_color_error)
 			return -1
 		except:
 			if not script_line: 
-				self.output.write('Error loading script file "' + str(script_path) + '".')
+				self.output.write('Error loading script file "' + str(script_path) + '".', color=self.output.font_color_error)
 			else:
-				self.output.write('Error (' + str(error) + ') on line '+ str(script_line_no) + '. Command: ' + str(script_line.strip()))
+				self.output.write('Error (' + str(error) + ') on line '+ str(script_line_no) + '. Command: ' + str(script_line.strip()), color=self.output.font_color_error)
 			return -1
+		finally:
+			# End time
+			end_tick = pygame.time.get_ticks()
+			
+			# Inform that script has ended
+			if verbose_mode: self.output.write(f"SCRIPT '{script_name}': Finished in {end_tick - start_tick} ms.", color=self.output.font_color_info)
 
 
 class Header:
@@ -624,6 +636,8 @@ class TextOutput:
 			font_size (optional, default 12): Font size
 			font_antialias (optional, default True): Font antialias (True/False)
 			font_color (optional, default (255,255,255)): Font color as tuple with 3 values. Eg. (255,255,255) for white.
+			font_color_error (optional, default (180,0,0)): Font color for displaying errors in command/script execution. 
+			font_color_info (optional, default (238,210,2)): Font color for displaying infos in command/script execution. 
 			font_bck_color (optional, default None): Font text background color as tuple with 3 values. Eg. (255,255,255) for white.
 			font_spacing (optional, default (1,0)): Only for font_type = BITMAP. Vertical and Horizontal spaces between the characters.
 			bck_color (optional, default (0,0,0)): Color of the text output background as tuple with 3 values.  Eg. (255,255,255) for white.
@@ -641,6 +655,8 @@ class TextOutput:
 					'font_size' : 16,
 					'font_antialias' : True,
 					'font_color' : (255,255,255),
+					'font_color_error' : (255,69,0),
+					'font_color_info' : (238,210,2),
 					'font_bck_color' : None,
 					'bck_color' : (0,0,0),
 					'bck_alpha' : 255,
@@ -1316,7 +1332,7 @@ class Console(pygame.Surface):
 				welcome_msg_color (optional, default (255,255,255)): Color of the console welcome text as tuple with 3 values.
 				cmd_pckg_path (optional, default None): Package, where module with console commands can be found.
 				script_path (optional, default None): Path, where console scripts can be found.
-				startup_script (optional, default None): Path to the script that should be executed after the console is initiated.
+				startup_scripts (optional, default None): Path to the script that should be executed after the console is initiated.
 				
 			header (optional section, see Header class for details): Parameters that govern console header configuration.
 			output (optional section, see TextOutput class for details): Parameters that govern console output configuration.
@@ -1331,6 +1347,12 @@ class Console(pygame.Surface):
 
 		# By default console is disabled
 		self.enabled = False
+
+		# Execute the startup script(s)
+		for script in config.get('global', {}).get('startup_scripts', []):
+			if self.cli: self.cli.do_script(script) # execute the script
+			if self.console_output: self.console_output.prepare_surface() # show the result on console
+
 
 	def init(self, width: int, config: dict={}, app=None):
 		''' Can be called when the configuration is changed.
@@ -1405,7 +1427,7 @@ class Console(pygame.Surface):
 			self.console_output = TextOutput(self, (width - self.padding.left - self.padding.right), config.get('output')) if config.get('output', None) else None
 			self.console_output.buffer = buffer_bckp
 			self.console_output.buffer_offset = buffer_offset_bckp
-		except AttributeError: # console_input not yet initiated
+		except AttributeError: # console_output not yet initiated
 			self.console_output = TextOutput(self, (width - self.padding.left - self.padding.right), config.get('output')) if config.get('output', None) else None
 
 		# Initiate footer object

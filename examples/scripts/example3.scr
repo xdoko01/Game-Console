@@ -1,5 +1,5 @@
 move $x $y
 !print('I have moved the brick named $name')
-!game.surf.fill((0, $color,0))
+!game.surf.fill($color)
 !print('I have colored the brick with $color')
 !print("All done!")

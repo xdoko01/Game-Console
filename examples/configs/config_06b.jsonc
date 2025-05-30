@@ -2,7 +2,11 @@
     "global" : {
         "cmd_pckg_path": "commands",
         "script_path": "examples/scripts/",
-        "startup_script": "example1.scr",
+        "startup_scripts": [
+            "examples1.scr", 
+            "example2.scr -v", 
+            "example3.scr x=1 y=2 color=[00,0] name=MyName --verbose"
+        ],
         "animation": ["TOP", 3000],
         "layout" : "INPUT_BOTTOM",
         "padding" : [10,10,10,10],

@@ -1,9 +1,8 @@
 # Tasks
- - [ ] Implement script that should be run after initiation of the console - in the global parameters
  - [ ] Fix the characters displayable on the TextInput - correct breaking to the next line
  - [ ] upload to PyPI
  - [ ] Update on pygame.org
- 
+
 # Game-Console
 Full-featured game console based on pygame that can be integrated in your python game in order to execute python command/scripts/custom in-game functions
 

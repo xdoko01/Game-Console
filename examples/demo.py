@@ -153,8 +153,8 @@ if __name__ == '__main__':
     #t = TestObject(console_config_file="examples/configs/config_05.jsonc")
     #t = TestObject(console_config_file="examples/configs/config_05b.jsonc")
     
-    #t = TestObject(console_config_file="examples/configs/config_06.json")
-    t = TestObject(console_config_file="examples/configs/config_06b.json")
+    #t = TestObject(console_config_file="examples/configs/config_06.jsonc")
+    t = TestObject(console_config_file="examples/configs/config_06b.jsonc")
 
 
     # Enter the infinite loop - press Esc to exit or type 'exit' into the console
