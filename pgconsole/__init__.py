@@ -42,6 +42,9 @@
 		-	if game.console_enabled = True then after generating game screen, generate also console screen
 		-	show_amim_console for animated spawn in main game class
 '''
+import logging
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename='console.log', level=logging.DEBUG)
 
 from io import StringIO # for redirection of commands output to the graphical console
 from pathlib import Path
@@ -129,6 +132,7 @@ class CommandLineProcessor(cmd.Cmd):
 			command_module = str_to_package_module(None, command_module_path_absolute)
 
 		except ValueError:
+			#self.output.write(f'Error during loading of py script command module "{command_module_path_absolute}".', color=self.output.font_color_error)
 			raise ValueError(f'Error during loading of py script command module "{command_module_path_absolute}".')
 
 		# Try to register the script
@@ -136,7 +140,8 @@ class CommandLineProcessor(cmd.Cmd):
 			command_module.initialize(self._register_command, command_module_name)
 
 		except ValueError:
-			raise ValueError(f'Error during initiating/registering of command module "{command_module_path_absolute}".')
+			self.output.write(f'Error during initiating/registering of command module "{command_module_path_absolute}".', color=self.output.font_color_error)
+			raise ValueError
 
 		return self._cmd_scripts.get(command_module_name)
 
@@ -236,14 +241,13 @@ class CommandLineProcessor(cmd.Cmd):
 		'''
 		
 		instructions = """
-			Examples of usage:
-				"script example1.scr"           ... runs script example1.scr
-				"script example1.scr -v"        ... runs script example1.scr in verbose mode
-				"script example1.scr --verbose" ... runs script example1.scr in verbose mode
-				"script example3.scr x=50 y=100 name=MyBrick color=128 --verbose" ... runs script example3.scr with parameters in verbose mode
-				"script -h"      ... get usage instructions
-				"script --help"  ... get usage instructions
-		"""
+Examples of usage:
+	"script example1.scr"           ... runs script example1.scr
+	"script example1.scr -v"        ... runs script example1.scr in verbose mode
+	"script example1.scr --verbose" ... runs script example1.scr in verbose mode
+	"script example3.scr x=50 y=100 name=MyBrick color=128 --verbose" ... runs script example3.scr with parameters in verbose mode
+	"script -h"      ... get usage instructions
+	"script --help"  ... get usage instructions"""
 
 
 		script_line = None
@@ -255,7 +259,7 @@ class CommandLineProcessor(cmd.Cmd):
 		
 		# no parameter or help
 		if no_of_params == 0 or all_params[-1] in ['-h', '--help']: 
-			print(instructions)
+			self.output.write(instructions, color=self.output.font_color_info)
 			return
 
 		script_name = all_params[0]
@@ -837,10 +841,48 @@ class TextOutput:
 					self.buffer_offset = min([max([0, len(self.buffer) - 1]), self.buffer_offset + 1])
 					self.prepare_surface()
 
+
+	def _calc_text_oneline_fit(self, text_line: str) -> list:
+		''' Returns list of numbers of characters, after which the text needs to
+		be broken in order to fit nicelly on Text Output pane.
+		'''
+		# I have a text line that I need to split if greater than the Output space
+		# For that I need 2 things
+
+		# - What is the width that I have available for my text on TextOutput in pixels?
+		#print(f'{self.txt_surf_dim.width=}') #... dimension (Rect) of the front font end surface
+
+		# - What is the actual pixel length that I am trying to paste?
+		#print(f'{self.font_object.get_metrics(text_line)=}') # (min_x, max_x, min_y, max_y, horizontal_advance_x, horizontal_advance_y)
+
+		# Create list with max_x width for each character in the text_line
+		text_line_chars_widths = [char[1] for char in self.font_object.get_metrics(text_line)] # second argument of the tuple is the max_x value according to the documentation
+
+		# Now, in cycle go through every element in text_line_chars_widths and do the splitting based on self.txt_surf_dim.width (px)
+		last_break_char_ord = 0
+		breaks_pos = [] # resulting list of breaks
+		sum_of_char_widths = 0 # storing of total px width
+
+		for char_order, char_width in enumerate(text_line_chars_widths): # get tuple (char_order, char_width)
+			
+			if sum_of_char_widths > self.txt_surf_dim.width: 
+				breaks_pos.append((last_break_char_ord, char_order-1)) # since we have exceeded, we need to move one char back
+				last_break_char_ord = char_order - 1 # remamber the last break
+				sum_of_char_widths = 0 # reset the calculation if text fits on a row
+				continue # continue with the next character
+
+			sum_of_char_widths += char_width
+
+		breaks_pos.append((last_break_char_ord, len(text_line_chars_widths))) # since we have exceeded, we need to move one char back
+
+		return breaks_pos
+
+
 	def write(self, text, color=None):
 		''' Handles adding output text into textoutput buffer in given color
 		and shifting of the buffer.
 		'''	
+		logger.info(f'Start Writing Original Text: "{text}", Required color: "{color}".')
 
 		# If color of the putput text is not specifically given, use predefined color
 		if not color: color = self.font_color
@@ -850,13 +892,62 @@ class TextOutput:
 
 		# Substitute tabs with predefined number of spaces
 		text = text.replace('\t', self.tab_spaces * ' ') 
-	
+
+		logger.debug(f'Adjusted Original Text(color, strip, tabs): "{text}", Color: "{color}".')
+
 		# Based on newline character put every output line on separate row
 		for text_line in text.split('\n'):
 			
 			# Only print if there is something to print
 			if text_line:
 
+				"""
+				# I have a text line that I need to split if greater than the Output space
+				# For that I need 2 things
+
+				# - What is the width that I have available for my text on TextOutput in pixels?
+				print(f'{self.txt_surf_dim.width=}') #... dimension (Rect) of the front font end surface
+
+				# - What is the actual pixel length that I am trying to paste?
+				print(f'{self.font_object.get_metrics(text_line)=}') # (min_x, max_x, min_y, max_y, horizontal_advance_x, horizontal_advance_y)
+				
+				# - What is the number of characters that I am able to print based on the above 2 variables?
+				text_line_length_px = sum(char[1] for char in self.font_object.get_metrics(text_line))
+				print(f'{text_line_length_px=}')
+
+				# calc in a cycle
+				text_length_printable_on_one_line_px = 0
+				text_length_printable_on_one_line_chars = 0
+				
+				for c in self.font_object.get_metrics(text_line):
+
+					if text_length_printable_on_one_line_px > self.txt_surf_dim.width:	break
+
+					text_length_printable_on_one_line_px += c[1]
+					text_length_printable_on_one_line_chars += 1
+				
+				text_length_printable_on_one_line_chars -= 1 # never come accross the line - one char back
+				
+				print(f'{text_length_printable_on_one_line_px=}, {text_length_printable_on_one_line_chars=}')
+
+				# Now take those first x characters that fit on the line text_line[1:text_length_printable_on_one_line_chars]
+				# - put it into the buffer
+				# - take the rest of the text_line and repeat the above for text_line = text_line[text_length_printable_on_one_line_chars:]
+				"""
+				breaks = self._calc_text_oneline_fit(text_line)
+				logger.debug(f'Writing text_line: "{text_line}", Calcucated breaks: {breaks}')
+
+				for brk in breaks: # [],[82],[82,164]
+					text_part = text_line[brk[0]:brk[1]] # text_part is part of the text wrapped based on console output dimensions
+					self.buffer.append((text_part, color))
+					logger.debug(f'Writing text_part: "{text_part}", Length: {len(text_part)}')
+
+					# Remove old rows from the buffer
+					if len(self.buffer) > self.buffer_size:
+						for i in range(1,len(self.buffer)):
+							self.buffer[i-1] = self.buffer[i]
+						del self.buffer[len(self.buffer)-1]
+				"""
 				# How many characters can we put one one line - minimal from setup and what can fit on the screen
 				# TEMPORARILY DISABLING AS BITMAPFONT does not have this get_metrics function self.display_columns = min(self.display_columns, self.width // self.font_object.get_metrics("_")[0][1])
 				self.display_columns = min(self.display_columns, self.width // self.font_object.get_rect("_").width)
@@ -875,7 +966,8 @@ class TextOutput:
 						for i in range(1,len(self.buffer)):
 							self.buffer[i-1] = self.buffer[i]
 						del self.buffer[len(self.buffer)-1]
-	
+				"""
+
 	def get_height(self):
 		''' Returns current height of the text output surface. 
 		Called from Console instance in order to construct all elements 

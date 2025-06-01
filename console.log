@@ -1,0 +1,84 @@
+DEBUG:pgconsole:breaks=[(0, 76)]
+DEBUG:pgconsole:Output Buffer append text: Sample 6: Mimimal - only input and output, with transparency and welcome msg, Length: 76 chars.
+DEBUG:pgconsole:breaks=[(0, 15)]
+DEBUG:pgconsole:Output Buffer append text: ***************, Length: 15 chars.
+DEBUG:pgconsole:breaks=[(0, 19)]
+DEBUG:pgconsole:Output Buffer append text: Type 'exit' to quit, Length: 19 chars.
+DEBUG:pgconsole:breaks=[(0, 24)]
+DEBUG:pgconsole:Output Buffer append text: Type 'help'/'?' for help, Length: 24 chars.
+DEBUG:pgconsole:breaks=[(0, 46)]
+DEBUG:pgconsole:Output Buffer append text: Type '? shell' for examples of python commands, Length: 46 chars.
+DEBUG:pgconsole:breaks=[(0, 15)]
+DEBUG:pgconsole:Output Buffer append text: script long.scr, Length: 15 chars.
+DEBUG:pgconsole:breaks=[(0, 88), (88, 178), (178, 260)]
+DEBUG:pgconsole:Output Buffer append text: (1)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(2)ABCDEFGHIJKLMNOPQRST, Length: 88 chars.
+DEBUG:pgconsole:Output Buffer append text: UVWXYZabcdefghijklmnopqrstuvwxyz0123456789(3)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrs, Length: 90 chars.
+DEBUG:pgconsole:Output Buffer append text: tuvwxyz0123456789(4)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789, Length: 82 chars.
+DEBUG:pgconsole:breaks=[(0, 4)]
+DEBUG:pgconsole:Output Buffer append text: exit, Length: 4 chars.
+DEBUG:pgconsole:breaks=[(0, 11)]
+DEBUG:pgconsole:Output Buffer append text: Exiting ..., Length: 11 chars.
+DEBUG:pgconsole:Start Writing Original Text: "Sample 6: Mimimal - only input and output, with transparency and welcome msg
+***************
+Type 'exit' to quit
+Type 'help'/'?' for help
+Type '? shell' for examples of python commands", Required color: "[0, 255, 0]".
+DEBUG:pgconsole:Adjusted Original Text(color, strip, tabs): "Sample 6: Mimimal - only input and output, with transparency and welcome msg
+***************
+Type 'exit' to quit
+Type 'help'/'?' for help
+Type '? shell' for examples of python commands", Color: "[0, 255, 0]".
+DEBUG:pgconsole:Writing text_line: "Sample 6: Mimimal - only input and output, with transparency and welcome msg", Calcucated breaks: [(0, 76)]
+DEBUG:pgconsole:Writing text_part: "Sample 6: Mimimal - only input and output, with transparency and welcome msg", Length: 76
+DEBUG:pgconsole:Writing text_line: "***************", Calcucated breaks: [(0, 15)]
+DEBUG:pgconsole:Writing text_part: "***************", Length: 15
+DEBUG:pgconsole:Writing text_line: "Type 'exit' to quit", Calcucated breaks: [(0, 19)]
+DEBUG:pgconsole:Writing text_part: "Type 'exit' to quit", Length: 19
+DEBUG:pgconsole:Writing text_line: "Type 'help'/'?' for help", Calcucated breaks: [(0, 24)]
+DEBUG:pgconsole:Writing text_part: "Type 'help'/'?' for help", Length: 24
+DEBUG:pgconsole:Writing text_line: "Type '? shell' for examples of python commands", Calcucated breaks: [(0, 46)]
+DEBUG:pgconsole:Writing text_part: "Type '? shell' for examples of python commands", Length: 46
+DEBUG:pgconsole:Start Writing Original Text: "script long.scr", Required color: "(255, 255, 255)".
+DEBUG:pgconsole:Adjusted Original Text(color, strip, tabs): "script long.scr", Color: "(255, 255, 255)".
+DEBUG:pgconsole:Writing text_line: "script long.scr", Calcucated breaks: [(0, 15)]
+DEBUG:pgconsole:Writing text_part: "script long.scr", Length: 15
+DEBUG:pgconsole:Start Writing Original Text: "(1)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(2)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(3)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(4)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
+", Required color: "None".
+DEBUG:pgconsole:Adjusted Original Text(color, strip, tabs): "(1)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(2)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(3)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(4)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
+", Color: "(255, 255, 255)".
+DEBUG:pgconsole:Writing text_line: "(1)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(2)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(3)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(4)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", Calcucated breaks: [(0, 88), (88, 178), (178, 260)]
+DEBUG:pgconsole:Writing text_part: "(1)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(2)ABCDEFGHIJKLMNOPQRST", Length: 88
+DEBUG:pgconsole:Writing text_part: "UVWXYZabcdefghijklmnopqrstuvwxyz0123456789(3)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrs", Length: 90
+DEBUG:pgconsole:Writing text_part: "tuvwxyz0123456789(4)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", Length: 82
+INFO:pgconsole:Start Writing Original Text: "Sample 6: Mimimal - only input and output, with transparency and welcome msg
+***************
+Type 'exit' to quit
+Type 'help'/'?' for help
+Type '? shell' for examples of python commands", Required color: "[0, 255, 0]".
+DEBUG:pgconsole:Adjusted Original Text(color, strip, tabs): "Sample 6: Mimimal - only input and output, with transparency and welcome msg
+***************
+Type 'exit' to quit
+Type 'help'/'?' for help
+Type '? shell' for examples of python commands", Color: "[0, 255, 0]".
+DEBUG:pgconsole:Writing text_line: "Sample 6: Mimimal - only input and output, with transparency and welcome msg", Calcucated breaks: [(0, 76)]
+DEBUG:pgconsole:Writing text_part: "Sample 6: Mimimal - only input and output, with transparency and welcome msg", Length: 76
+DEBUG:pgconsole:Writing text_line: "***************", Calcucated breaks: [(0, 15)]
+DEBUG:pgconsole:Writing text_part: "***************", Length: 15
+DEBUG:pgconsole:Writing text_line: "Type 'exit' to quit", Calcucated breaks: [(0, 19)]
+DEBUG:pgconsole:Writing text_part: "Type 'exit' to quit", Length: 19
+DEBUG:pgconsole:Writing text_line: "Type 'help'/'?' for help", Calcucated breaks: [(0, 24)]
+DEBUG:pgconsole:Writing text_part: "Type 'help'/'?' for help", Length: 24
+DEBUG:pgconsole:Writing text_line: "Type '? shell' for examples of python commands", Calcucated breaks: [(0, 46)]
+DEBUG:pgconsole:Writing text_part: "Type '? shell' for examples of python commands", Length: 46
+INFO:pgconsole:Start Writing Original Text: "script long.scr", Required color: "(255, 255, 255)".
+DEBUG:pgconsole:Adjusted Original Text(color, strip, tabs): "script long.scr", Color: "(255, 255, 255)".
+DEBUG:pgconsole:Writing text_line: "script long.scr", Calcucated breaks: [(0, 15)]
+DEBUG:pgconsole:Writing text_part: "script long.scr", Length: 15
+INFO:pgconsole:Start Writing Original Text: "(1)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(2)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(3)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(4)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
+", Required color: "None".
+DEBUG:pgconsole:Adjusted Original Text(color, strip, tabs): "(1)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(2)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(3)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(4)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
+", Color: "(255, 255, 255)".
+DEBUG:pgconsole:Writing text_line: "(1)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(2)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(3)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(4)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", Calcucated breaks: [(0, 88), (88, 178), (178, 260)]
+DEBUG:pgconsole:Writing text_part: "(1)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789(2)ABCDEFGHIJKLMNOPQRST", Length: 88
+DEBUG:pgconsole:Writing text_part: "UVWXYZabcdefghijklmnopqrstuvwxyz0123456789(3)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrs", Length: 90
+DEBUG:pgconsole:Writing text_part: "tuvwxyz0123456789(4)ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", Length: 82
