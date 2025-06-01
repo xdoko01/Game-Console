@@ -36,7 +36,6 @@
         //"font_file" : "examples/fonts/bitmap/red_gradient_capital_font.json", "font_size" : 16, "font_spacing": [2,0],
 
         "bck_alpha" : 0,
-        "display_lines" : 20,
-        "display_columns" : 100
+        "display_lines" : 20
     }
 }

@@ -23,7 +23,6 @@
         "bck_alpha" : 120,
         "buffer_size" : 100,
         "display_lines" : 20,
-        "display_columns" : 100,
         "line_spacing" : null							
     },
     "input" : {

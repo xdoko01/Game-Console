@@ -1,6 +1,5 @@
 # Tasks
- - [ ] Fix the characters displayable on the TextInput - correct breaking to the next line
-  - [ ] Function that recalculates the whole output buffer after change of the resolution so that output texts are correctly wrapped also after the change
+ - [ ] Function that recalculates the whole output buffer after change of the resolution so that output texts are correctly wrapped also after the change
 
  - [ ] upload to PyPI
  - [ ] Update on pygame.org

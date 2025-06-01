@@ -15,7 +15,6 @@
     "output" : {
         "font_file" : "examples/fonts/truetype/JackInput.ttf",
         "bck_alpha" : 0,
-        "display_lines" : 20,
-        "display_columns" : 100
+        "display_lines" : 20
     }
 }

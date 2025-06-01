@@ -44,7 +44,7 @@
 '''
 import logging
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename='console.log', level=logging.DEBUG)
+logging.basicConfig(filename='console.log', filemode='w', level=logging.DEBUG)
 
 from io import StringIO # for redirection of commands output to the graphical console
 from pathlib import Path
@@ -649,7 +649,6 @@ class TextOutput:
 			prompt (optional, default ''): Characters printed on the beginning of every output line.
 			buffer_size (optional, default 100): How many lines of output should be stored as history.
 			display_lines (mandatory): How many lines of output should be displayed on console at the same time. Defines height of the console.
-			display_columns (mandatory): After how many characters the output needs to be wrapped to the new line.
 			line_spacing (optional, default None): How big line spacing should there be between text output lines.
 		'''		
 		# Dictionary with default values
@@ -667,7 +666,6 @@ class TextOutput:
 					'prompt'	: '',
 					'buffer_size': 100,
 					'line_spacing': None,
-					'display_columns': 500,
 					'tab_spaces': 4				# substitute tabs with spaces
 		}
 
@@ -856,22 +854,26 @@ class TextOutput:
 		#print(f'{self.font_object.get_metrics(text_line)=}') # (min_x, max_x, min_y, max_y, horizontal_advance_x, horizontal_advance_y)
 
 		# Create list with max_x width for each character in the text_line
-		text_line_chars_widths = [char[1] for char in self.font_object.get_metrics(text_line)] # second argument of the tuple is the max_x value according to the documentation
-
+		# Hard to explain why, but the 5th value HORIZONTAL_ADVANCE_X must be used to return a usable results, in MAX_X parameter are for example omitted spaces
+		text_line_chars_widths = [char[4] for char in self.font_object.get_metrics(text_line)] # second argument of the tuple is the max_x value according to the documentation
+		
 		# Now, in cycle go through every element in text_line_chars_widths and do the splitting based on self.txt_surf_dim.width (px)
 		last_break_char_ord = 0
 		breaks_pos = [] # resulting list of breaks
 		sum_of_char_widths = 0 # storing of total px width
 
 		for char_order, char_width in enumerate(text_line_chars_widths): # get tuple (char_order, char_width)
-			
+
+			# Try to add one more character
+			sum_of_char_widths += char_width
+
+			# And test if it can be displayed on output
 			if sum_of_char_widths > self.txt_surf_dim.width: 
 				breaks_pos.append((last_break_char_ord, char_order-1)) # since we have exceeded, we need to move one char back
 				last_break_char_ord = char_order - 1 # remamber the last break
-				sum_of_char_widths = 0 # reset the calculation if text fits on a row
+				sum_of_char_widths = char_width # the calculation must contain already here the width of the currently processed character
 				continue # continue with the next character
 
-			sum_of_char_widths += char_width
 
 		breaks_pos.append((last_break_char_ord, len(text_line_chars_widths))) # since we have exceeded, we need to move one char back
 
@@ -940,7 +942,7 @@ class TextOutput:
 				for brk in breaks: # [],[82],[82,164]
 					text_part = text_line[brk[0]:brk[1]] # text_part is part of the text wrapped based on console output dimensions
 					self.buffer.append((text_part, color))
-					logger.debug(f'Writing text_part: "{text_part}", Length: {len(text_part)}')
+					logger.debug(f'Writing text_part: "{text_part}", Length: {len(text_part)} chars, Px: {sum(char[4] for char in self.font_object.get_metrics(text_part))}')
 
 					# Remove old rows from the buffer
 					if len(self.buffer) > self.buffer_size:
