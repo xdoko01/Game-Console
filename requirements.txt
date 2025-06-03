@@ -1,4 +1,4 @@
 pygame>=2.0.0
-pgbitmapfont>=0.1.3
+pgbitmapfont>=0.1.4
 pathlib
 
