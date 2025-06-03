@@ -44,7 +44,10 @@
 '''
 import logging
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename='console.log', filemode='w', level=logging.DEBUG)
+
+# Enable for logging
+# logging.basicConfig(filename='console.log', filemode='w', level=logging.DEBUG)
+
 
 from io import StringIO # for redirection of commands output to the graphical console
 from pathlib import Path

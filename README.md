@@ -1,7 +1,6 @@
 # Tasks
  - [ ] Function that recalculates the whole output buffer after change of the resolution so that output texts are correctly wrapped also after the change
  - [ ] CommandLineInterface when output is not console but standard IO, it does not support color parameter. Fix it.
- - [ ] upload to PyPI
  - [ ] Update on pygame.org
 
 # Game-Console
