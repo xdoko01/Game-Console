@@ -11,7 +11,7 @@ requires-python = ">=3.7"
 dependencies = [
     "pygame>=2.0.0",
     "pathlib",
-    pgbitmapfont>=0.1.4
+    "pgbitmapfont>=0.1.4"
 ]
 
 [project.urls]
