@@ -1,0 +1,23 @@
+[project]
+name = "pgconsole"
+version = "0.1.0"
+description = "A Python library to add full-featured console to any game."
+authors = [
+    { name = "xdoko01" }
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.7"
+dependencies = [
+    "pygame>=2.0.0",
+    "pathlib",
+    pgbitmapfont>=0.1.4
+]
+
+[project.urls]
+Homepage = "https://github.com/xdoko01/Pygame-Console"
+Issues = "https://github.com/xdoko01/Pygame-Console/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
